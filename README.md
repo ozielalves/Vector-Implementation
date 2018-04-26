@@ -5,13 +5,13 @@ Repo for a entire class and template implementation of Vector library. Done as a
 ## Implementation
 
 
-# TODO
+## TODO
 
 - [ ] Write a basic simulation...
 
-# Authorship
+## Authorship
 
-Program developed by _put your name here_ (< *your_email@email.com) and _Oziel Alves_ (< *your_email@ufrn.edu.br* >), 2018.1
+Program developed by _put your name here_ (< *your_email@email.com* >) and _Oziel Alves_ (< *ozielalves@ufrn.edu.br* >), 2018.1
 
-&copy; IMD/UFRN 2017.
+&copy; IMD/UFRN 2018.
 
