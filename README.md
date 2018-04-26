@@ -3,3 +3,15 @@
 Repo for a entire class and template implementation of Vector library. Done as asked by my professor at Universidade Federal do Rio Grande do Norte([UFRN](www.ufrn.br)).
 
 ## Implementation
+
+
+# TODO
+
+- [ ] Write a basic simulation...
+
+# Authorship
+
+Program developed by _put your name here_ (< *your_email@email.com) and _Oziel Alves_ (< *your_email@ufrn.edu.br* >), 2018.1
+
+&copy; IMD/UFRN 2017.
+
