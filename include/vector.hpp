@@ -38,7 +38,7 @@ namespace sc{
 		
 /*--------------------------[I] Special Members------------------------------*/	
 		/*! @brief Creates the vector with the 'a' size setted. */
-		vector( size_t a );
+		vector( size_t sz_ );
 
 		/*! @brief Creates a default start_size vector size. */ 
 		vetor(  );
