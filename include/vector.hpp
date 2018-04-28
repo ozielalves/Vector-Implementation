@@ -38,7 +38,7 @@ namespace sc{
 		
 /*--------------------------[I] Special Members------------------------------*/	
 		/*! @brief Creates the vector with the 'a' size setted. */
-		vector( size_t sz_ );
+		vector( size_t size_ );
 
 		/*! @brief Creates a default start_size vector size. */ 
 		vetor(  );
@@ -101,22 +101,22 @@ namespace sc{
 		/*! @brief Remove all the elements from the vector. */                  
 		void clear(   );                                       
 			   31        
-		/*! @brief Add a value to the front of the vector. *                    
+		/*! @brief Add a value to the front of the vector. */                   
 		void push_front(   );                                                 
 		
 		/*! @brief Add a value to the end of the vector. */                     
 		void push_back(   );
 		
-		/*! @brief Remove the element at the end of the vector. *               
+		/*! @brief Remove the element at the end of the vector. */              
 		void pop_back(   ); 
 		
 		/*! @brief Remove the front of the vector.*/                            
 		void pop_front(   );                                                
 		
-		/*! @brief Increase the storage capacity to a param value. *            
+		/*! @brief Increase the storage capacity to a param value. */           
 		void reserve( size_t new_cap  );  
 
-		/*! @brief Reduce the capacity() to size(). *                           
+		/*! @brief Reduce the capacity() to size(). */                          
 		void shrink_to_fit(   );    
 		
 		/*! @brief Replaces the vector content with 'value' copies. */          

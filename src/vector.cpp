@@ -1,7 +1,7 @@
 /**  
  * @file vector.cpp  
  * @version 1.0  
- * @date 26/04/2018  
+ * @date April, 27. 
  * @author Daniel Guerra and Oziel Alves  
  * @title TAD Vector   
  * @brief Implementation of Vector's functions.  
@@ -15,31 +15,48 @@ using namespace sc;
 
 /*--------------------------[I] Special Members------------------------------*/
 
-vector<T>::vector( size_t sz ){
+vector<T>::vector( size_t size_ ){
 
-	m_len = 0;
-	m_size = sz_;
-	m_storage = new T[sz_+1] /// +1 needed to 'end()' pos. 
+	m_end = 0;
+	m_capacity = size_;
+	m_storage = new T[size_+1] /// +1 needed to 'end()' pos. 
 }
 
 template< typename T > // evoked when used.
-vector< T >::vector( size_t sz_ ){
+vector< T >::vector(  ){
 
-	m_len = 0;
-	m_size = DEFAULT_SIZE;
-	m_data = new T[DEFAULT_SIZE + 1]; // 'end()' pos
+	m_end = 0;
+	m_capacity = DEFAULT_SIZE;
+	m_storage = new T[DEFAULT_SIZE + 1]; // 'end()' pos
 }
 
 template< typename T >
-vector< T >::~vector(){ //Destructor, here wee will free memory space
+vector< T >::~vector(  ){ // Destructor, here wee will free memory space
 
-	delete [] m_data;
+	delete [] m_storage;
 }
 
 template< typename T >
+vector< T >::vector( const vector< T > & vec_to_copy ){// Vector based on other
+
+	m_end = vec_to_copy.m_end;
+	m_capacity = vec_to_copy.m_capacity;
+	m_storage = new T[ vec_to_copy.m_capacity + 1 ]; // 'end()' pos
+
+	for( auto i = 0u; i < m_end; ++i /* better than i++ on this case */)
+}
+
+template< typename T >
+/* Vector created based on a initializer list */
 vector< T >::vector( std:: initializer_list< T > ilist ){
 
-	
+	m_end = ilist.size(  );
+	m_capacity = ilist.size(  );
+	m_storage = new T[ ilist.size(  ) + 1];
+
+	for( auto i = 0u; i < m_end; ++i /* better than i++ */ ){
+		m_storage[i] = *(ilist.begin(  ) + i);
+}
 }
 
 /*-----------------------------[II] Iterators--------------------------------*/
