@@ -1,8 +1,10 @@
-# Vector-Class. A project for IMD0039 Estrutura de Dados Básica(EDB) 
+# TAD-Vector. A project for Estrutura de Dados Básica I (EDB I) 
+
 ## Description
 Repo for a entire class and template implementation of Vector library. Done as asked by my professor at Universidade Federal do Rio Grande do Norte([UFRN](www.ufrn.br)).
 
 ## Implementation
+// TODO
 
 
 ## TODO
