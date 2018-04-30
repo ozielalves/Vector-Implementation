@@ -1,7 +1,7 @@
 /**
  * @file vector.hpp
  * @version 1.0
- * @date April 26
+ * @date April, 30.
  * @authors Daniel Guerra and Oziel Alves
  * @title Class sc::vector
  * @brief Vector class's declaration

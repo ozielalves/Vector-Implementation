@@ -1,13 +1,11 @@
 /**  
  * @file vector.cpp  
  * @version 1.0  
- * @date April, 27. 
+ * @date April, 30. 
  * @author Daniel Guerra and Oziel Alves  
  * @title TAD Vector   
  * @brief Implementation of Vector's functions.  
  */
-
-// agora e a parte legal
 
 #include "vector.h"
 
@@ -60,6 +58,8 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 }
 
 /*-----------------------------[II] Iterators--------------------------------*/
+
+	//TODO
 
 /*-------------------------[III] Storage Capacity----------------------------*/
 
@@ -280,3 +280,6 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 /*--------------------------[VII] Friend functions---------------------------*/
+
+	//TODO
+
