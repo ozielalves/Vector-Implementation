@@ -74,7 +74,7 @@ namespace sc{
 		size_t size(  ) const;
 
 		/*! @brief Show the vector storage capacity. */
-		size_t storage_cap(  )const;
+		size_t capacity(  )const;
 
 		/*! @brief Tells if the vector is empty. */
 		bool empty(  )const;
@@ -102,10 +102,10 @@ namespace sc{
 		void clear(   );                                       
 			   31        
 		/*! @brief Add a value to the front of the vector. */                   
-		void push_front(   );                                                 
+		void push_front( const T & value  );                                   
 		
 		/*! @brief Add a value to the end of the vector. */                     
-		void push_back(   );
+		void push_back( const T & value  );
 		
 		/*! @brief Remove the element at the end of the vector. */              
 		void pop_back(   ); 
@@ -114,7 +114,7 @@ namespace sc{
 		void pop_front(   );                                                
 		
 		/*! @brief Increase the storage capacity to a param value. */           
-		void reserve( size_t new_cap  );  
+		void reserve( size_t new_capacity  );  
 
 		/*! @brief Reduce the capacity() to size(). */                          
 		void shrink_to_fit(   );    
