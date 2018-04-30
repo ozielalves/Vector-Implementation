@@ -7,7 +7,13 @@ Repo for a entire class and template implementation of Vector library. Done as a
 
 ## TODO
 
-- [ ] Write a basic simulation...
+- [x] Special Members
+- [ ] Iteratos
+- [x] Storage Capacity
+- [x] Modifiers
+- [x] Element Access
+- [x] Operators
+- [ ] Friend Functions
 
 ## Authorship
 
