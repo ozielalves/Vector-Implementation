@@ -8,7 +8,7 @@ Repo for a entire class and template implementation of Vector library. Done as a
 ## TODO
 
 - [x] Special Members
-- [ ] Iteratos
+- [ ] Iterators
 - [x] Storage Capacity
 - [x] Modifiers
 - [x] Element Access
