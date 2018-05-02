@@ -18,6 +18,13 @@ $ make clean
 ```
 
 ## How to execute
+Now, we show how to run the program
+```bash
+# To execute program:
+$ ./vectorTest
+
+# Detail: The program will also show the possible errors.(?) A gnt exclui isso se não der pra fazer.;-;
+```
 
 ## Implementation
 // TODO
@@ -26,12 +33,12 @@ $ make clean
 ## TODO
 
 - [x] Special Members
-- [ ] Iterators
+- [x] Iterators
 - [x] Storage Capacity
-- [x] Modifiers
-- [x] Element Access
+- [ ] Modifiers
+- [ ] Element Access
 - [x] Operators
-- [ ] Friend Functions
+- [x] Friend Functions
 
 ## Authorship
 
