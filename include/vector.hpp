@@ -182,7 +182,6 @@ namespace sc{
 	};
 }
 
-
 #include "vector.inl" // All the class function, operators and stuff like that
 #include "MyIterator.inl"
 
