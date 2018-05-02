@@ -10,7 +10,7 @@
 #ifndef _VECTOR_HPP_
 #define _VECTOR_HPP_
 
-#include "MyIterator"
+//#include "MyIterator"
 
 #include <iostream> // cin,cout
 #include <algorithm> //copy
@@ -188,5 +188,6 @@ namespace sc{
 
 
 #include "vector.inl" // All the class function, operators and stuff like that
+//#include "MyIterator" // Itarator
 
 #endif
