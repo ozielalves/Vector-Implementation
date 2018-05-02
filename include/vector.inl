@@ -2,7 +2,7 @@
  * @file vector.inl  
  * @version 1.0  
  * @date May, 01. 
- * @author Daniel Guerra and Oziel Alves  
+ * @authors Daniel Guerra and Oziel Alves  
  * @title TAD Vector   
  * @brief Implementation of Vector's functions.  
  */
@@ -12,8 +12,8 @@
 using namespace sc;
 
 /*--------------------------[I] Special Members------------------------------*/
-
-vector<T>::vector( size_t size_ ){
+template< typename T >
+vector< T >::vector( size_t size_ ){
 
 	m_end = 0;
 	m_capacity = size_;
@@ -34,6 +34,7 @@ vector< T >::~vector(  ){ // Destructor, here wee will free memory space
 	delete [] m_storage;
 }
 
+/// Copy Constructor
 template< typename T >
 vector< T >::vector( const vector< T > & vec_to_copy ){// Vector based on other
 
@@ -54,12 +55,35 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 	for( auto i = 0u; i < m_end; ++i /* better than i++ */ ){
 		m_storage[i] = *(ilist.begin(  ) + i);
-}
+	}
 }
 
 /*-----------------------------[II] Iterators--------------------------------*/
 
-	//TODO
+template < typename T >
+MyIterator<T> vector< T >::begin( void )
+{
+	return MyIterator(&m_storage[0]);
+}
+
+template < typename T >
+MyIterator<T> vector< T >::end( void )
+{
+	return MyIterator(&m_storage[m_capacity]);
+}
+
+template < typename T >
+MyIterator<const T> vector< T >::cbegin( void ) const
+{
+	return MyIterator(&m_storage[0]);
+}
+
+template < typename T >
+MyIterator<const T> vector< T >::cend( void ) const
+{
+	return MyIterator(&m_storage[m_capacity])
+}
+
 
 /*-------------------------[III] Storage Capacity----------------------------*/
 
@@ -69,7 +93,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 		return m_end;
 	}
 
-	template< typename T > // Vector's capacity
+	template< typenaime T > // Vector's capacity
 	size_t vector< T >::capacity(  ) const{
 
 		return m_capacity;
@@ -78,7 +102,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	template< typename T > // Tells if the vector is empty
 	bool vector< T >::empty(  ) const{
 
-		return m_end == 0;
+		return m_end < 0;
 	}
 
 	template< typename T > // Tells if the vector is full (making it easier)
@@ -89,6 +113,11 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 /*-----------------------------[IV] Modifiers--------------------------------*/
 
+	//TODO
+/*		Insert x2; (Initialize list) and (Template InputItr)
+		Assign x2; (Initialize list) and (Template InputItr)
+		Erase x2;
+*/				
 	template< typename T > 
 	void vector< T >::clear(  ){
 
@@ -101,7 +130,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	void vector< T >::push_front( const T & value_ ){
 
 		if( full(  ) == true ){
-			reserve( 1 + 2 * m_capacity ); // The capacity will be doubled 
+			reserve( 1 + m_capacity ); // The capacity will be doubled 
 		}
 		
 		for( auto i = m_end; i > 0; --i ){ // Dynamizing the vector
@@ -116,10 +145,11 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	void vector< T >::push_back( const T & value ){
 		
 		if( full(  ) == true ){
-			reserve( 1 + 2 * m_capacity ); // The capacity will be doubled
+			reserve( 1 + m_capacity ); // The capacity will be doubled
 		}
 
-		m_storage[m_end + 1] = value;
+		m_storage[m_end++] = value;
+		
 	}
 
 	template< typename T > 
@@ -146,6 +176,32 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 		m_end--;
 	}
 
+	template < typename T >
+	MyIterator< T > vector< T >::insert( MyIterator& itr, const T& value)
+	{
+
+/*--------Remember to 'levar em consideração' the fact that there
+	may be exceptions thrown-------------------
+		if(itr == this->.end()) {
+>>>>>>>>>>>>>>>>--------------------------<<<<<<<<<<<<<<<<<
+		}
+*/
+		if(m_end == m_capacity) {
+			reserve(1 + m_capacity); //Increases capacity
+		}
+
+		// Iterator to the last element with atributed value in vector
+		MyIterator it_temp;
+		it_temp = this->.begin() + (m_end + 1);
+
+		for(auto i(it_temp); i != itr; i--)
+		{
+			*i = *(i-1);
+		}
+		
+		*itr = value;
+	}
+
 	template< typename T >
 	void vector< T >::reserve( size_t new_capacity ){
 
@@ -155,7 +211,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 		m_capacity = new_capacity;
 		m_storage = new T[new_capacity + 1];
 
-		for( auto i(0u); i < m_end; ++i ){
+		for( auto i(0u); i < m_end; i++ ){
 			m_storage[i] = tmp[i];
 		}
 
@@ -176,7 +232,6 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 		delete [] tmp;
 	}	
-
 	template< typename T >
 	void vector< T >::assign( const T & value ){ /* Replaces the vector with
 													copies */
@@ -187,6 +242,10 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 /*---------------------------[V] Element access------------------------------*/
 
+	//TODO
+/*
+	Operator[] x1;
+*/
 	template< typename T >
 	const T & vector< T >::back(  ) const{ // Access the back element
 
@@ -195,7 +254,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 		}
 
 		return m_storage[m_end - 1];
-	}
+	}	
 
 	template< typename T >
 	const T & vector< T >::front (  ) const{ // Access the front element
@@ -226,7 +285,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	template< typename T >
 	T & vector< T >::at( size_t pos ){
 		
-		if( pos <  or pos > (m_end - 1)){
+		if( pos < 0  or pos > (m_end - 1)){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -242,7 +301,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	template< typename T >
 	const T & vector< T >::data(  ) const{
 
-		return m_storage
+		return m_storage;
 	}
 
 	template< typename T >
@@ -281,5 +340,40 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 /*--------------------------[VII] Friend functions---------------------------*/
 
-	//TODO
+	void swap( vector< T >& first_, vector< T >& second_){
+
+		T *tmp_storage1 = first_.m_storage;
+		T *tmp_storage2 = second_.m_storage;
+
+		std::swap(first_.m_capacity, second_.m_capacity);
+
+		delete [] first_.m_storage;
+		delete [] second_.m_storage;
+
+		first_.m_storage = new T[first_.m_capacity];
+		second_.m_storage = new T[second_.m_capacity];
+		
+		for(int i = 0; i < first_.m_end; i++) {
+			*(second_.m_storage+i) = *(tmp_storage1+i);
+		}
+		
+		for(int i = 0; i < second_.m_end; i++) {
+			*(first_.m_storage+i) = *(tmp_storage2+i);
+		}
+
+		std::swap(first_.m_end, second_.m_end);	
+	}
+
+
+	std::ostream& operator<<( std::ostream os, const vector< T >& rhs )
+	{
+		os << "[ ";
+		for( auto i(0u); i < rhs.m_end; i++)
+		{
+			os << *(rhs.m_storage+i) << " ";
+		}
+		os << "]";
+		return os;
+	}
+
 

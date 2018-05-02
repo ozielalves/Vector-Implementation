@@ -10,7 +10,7 @@
 #ifndef _VECTOR_HPP_
 #define _VECTOR_HPP_
 
-#include "MyIterator"
+#include "MyIterator.hpp"
 
 #include <iostream> // cin,cout
 #include <algorithm> //copy
@@ -41,7 +41,7 @@ namespace sc{
 		vector( size_t size_ );
 
 		/*! @brief Creates a default start_size vector size. */ 
-		vetor(  );
+		vector(  );
 
 		/*! @brief Destructs the vector. */
 		~vector(  );
@@ -174,19 +174,16 @@ namespace sc{
 
 /*--------------------------[VII] Friend functions---------------------------*/
 
-  	// TODO
+	friend std::ostream & operator<<(std::ostream& os,  const vector<T> & rhs);
+	friend void swap( vector<T> & first_, vector<T> & second_);
 
-  /*
-   	friend std::ostream & operator<<(std::ostream & os_, const vector<T> & v_);
-	friend void swap( vector< T > & frist_, vector & second_ );
-  */
-  
-  	// END OF TODO
+
 
 	};
 }
 
 
 #include "vector.inl" // All the class function, operators and stuff like that
+#include "MyIterator.inl"
 
 #endif
