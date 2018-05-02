@@ -1,13 +1,13 @@
 /**  
- * @file vector.cpp  
+ * @file vector.inl  
  * @version 1.0  
- * @date April, 30. 
+ * @date May, 01. 
  * @author Daniel Guerra and Oziel Alves  
  * @title TAD Vector   
  * @brief Implementation of Vector's functions.  
  */
 
-#include "vector.h"
+#include "vector.hpp"
 
 using namespace sc;
 
