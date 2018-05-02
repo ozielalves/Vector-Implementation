@@ -41,7 +41,9 @@ vector< T >::vector( const vector< T > & vec_to_copy ){// Vector based on other
 	m_capacity = vec_to_copy.m_capacity;
 	m_storage = new T[ vec_to_copy.m_capacity + 1 ]; // 'end()' pos
 
-	for( auto i = 0u; i < m_end; ++i /* better than i++ on this case */)
+	for( auto i = 0u; i < m_end; ++i /* better than i++ on this case */){
+		m_storage[i] = vec_to_copy.m_storage[i];
+	}
 }
 
 template< typename T >
