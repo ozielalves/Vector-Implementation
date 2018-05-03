@@ -27,7 +27,7 @@ $ ./vectorTest
 ```
 
 ## Implementation
-// TODO
+The whole code was made based on the std Vector, so the objective of this implementations is to recreate the experience that an usual client has when using the Vector's lib.
 
 
 ## TODO
@@ -35,14 +35,14 @@ $ ./vectorTest
 - [x] Special Members
 - [x] Iterators
 - [x] Storage Capacity
-- [ ] Modifiers 
+- [x] Modifiers 
 - [x] Element Access
 - [x] Operators
 - [x] Friend Functions
 
 ## Authorship
 
-Program developed by _Daniel Oliveira Guerra_ (< *daniel.guerra13@hotmail.com* >) and _Oziel Alves_ (< *ozielalves@ufrn.edu.br* >), 2018.1
+Program developed by _Daniel Oliveira Guerra_ (*daniel.guerra13@hotmail.com*) and _Oziel Alves_ (*ozielalves@ufrn.edu.br*), 2018.1
 
 &copy; IMD/UFRN 2018.
 
