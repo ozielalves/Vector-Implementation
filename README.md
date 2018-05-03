@@ -35,8 +35,8 @@ $ ./vectorTest
 - [x] Special Members
 - [x] Iterators
 - [x] Storage Capacity
-- [ ] Modifiers
-- [ ] Element Access
+- [ ] Modifiers 
+- [x] Element Access
 - [x] Operators
 - [x] Friend Functions
 
