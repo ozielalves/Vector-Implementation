@@ -2,7 +2,7 @@
  * @file vector.hpp
  * @version 1.0
  * @date April, 30.
- * @authors Daniel Guerra and Oziel Alves
+ * @author Daniel Guerra and Oziel Alves
  * @title Class sc::vector
  * @brief Vector class's declaration
  */
@@ -13,10 +13,11 @@
 #include "MyIterator.hpp"
 
 #include <iostream> // cin,cout
+#include <exception> // out_of_range throw
 #include <algorithm> //copy
 #include <iterator> // ostream_iterator
 #include <cstdlib> // size_t
-#include <initializar_list> // initializer_list
+#include <initializer_list> // initializer_list
 #include <cassert> // assert
 
 namespace sc{
@@ -29,10 +30,10 @@ namespace sc{
 		size_t m_end; //<! last valid element index (vector current size).
 		size_t m_capacity; //<! Vector storage capacity.
 		const static size_t DEFAULT_SIZE = 0; //!< Vector start size.
-		T * m_storage //<! Dynamic vector data storage.
+		T * m_storage; //<! Dynamic vector data storage.
 
-		using iterator = MyIterator< T > //
-		using const_iterator = MyIterator< const T > //
+		//using iterator = MyIterator< T > //
+		//using const_iterator = MyIterator< const T > //
 
 	public:
 		
@@ -41,10 +42,10 @@ namespace sc{
 		vector( size_t size_ );
 
 		/*! @brief Creates a default start_size vector size. */ 
-		vector(  );
+		vector( );
 
 		/*! @brief Destructs the vector. */
-		~vector(  );
+		~vector( );
 
 		/*! @brief Copy constructor, creats a vector based on the param. */ 
 		vector( const vector<T> & vec_to_copy );
@@ -71,16 +72,16 @@ namespace sc{
 /*-------------------------[III] Storage Capacity----------------------------*/
 
 		/*! @brief Shows the current vector size. */
-		size_t size(  ) const;
+		size_t size( ) const;
 
 		/*! @brief Show the vector storage capacity. */
-		size_t capacity(  )const;
+		size_t capacity( )const;
 
 		/*! @brief Tells if the vector is empty. */
-		bool empty(  )const;
+		bool empty( )const;
 
 		/*! @brief Informs if the vector is full o not. */
-		bool full (  )const;
+		bool full ( )const;
 
 /*-----------------------------[IV] Modifiers--------------------------------*/
 
@@ -99,8 +100,8 @@ namespace sc{
 	// END OF TODO
 	
 		/*! @brief Remove all the elements from the vector. */                  
-		void clear(   );                                       
-			   31        
+		void clear( );                                       
+			           
 		/*! @brief Add a value to the front of the vector. */                   
 		void push_front( const T & value  );                                   
 		
@@ -108,16 +109,16 @@ namespace sc{
 		void push_back( const T & value  );
 		
 		/*! @brief Remove the element at the end of the vector. */              
-		void pop_back(   ); 
+		void pop_back( ); 
 		
 		/*! @brief Remove the front of the vector.*/                            
-		void pop_front(   );                                                
+		void pop_front( );                                                
 		
 		/*! @brief Increase the storage capacity to a param value. */           
 		void reserve( size_t new_capacity  );  
 
 		/*! @brief Reduce the capacity() to size(). */                          
-		void shrink_to_fit(   );    
+		void shrink_to_fit( );    
 		
 		/*! @brief Replaces the vector content with 'value' copies. */          
 		void assign( const T & value  );  
@@ -125,10 +126,10 @@ namespace sc{
 /*---------------------------[V] Element access------------------------------*/
 		
 		/*! @return The element at the end of the vector. */
-		const T & back (  ) const;
+		const T & back ( ) const;
 		
 		/*! @return The element at the front of the vector. */ 
-		const T & front (  ) const;
+		const T & front ( ) const;
 
 		/*! @return The element object at the 'pos' index in the vector.
 		 * No bounds checking.
@@ -143,7 +144,7 @@ namespace sc{
 		/*! @return The const element at the 'pos' index in the vector.
 		 * Bounds checking.
 		 */ 
-		const T & at(size_t pos);
+		const T & at(size_t pos) const;
 
 		/*! @return The elemente at the 'pos' index in the vector.
 		 * Bounds checking.
@@ -153,24 +154,24 @@ namespace sc{
 		/*! @return A pointer to the first element in the vector used 
 		 * internally by the vector.
 		 */ 
-		T * data(  );
+		T * data( );
 
 		/*! @return A const pointer to the first element in the vector used
 		 * internally by the vector.
 		 */ 
-		const T & data(  ) const;
+		const T & data( ) const;
 
 		/*! @brief Prints the vector, vector's lenght and capacity. */ 
-		void print(  ) const;
+		void print( ) const;
 
 
 /*-----------------------------[VI] Operators--------------------------------*/
 
 		/*! @brief iqual operator*/ 
-		bool operator==( const vector< T > & vec )const;
+		bool operator==( const vector<T> & vec ) const;
 	
 		/*! @brief difference operator*/ 
-		bool operator!=( const vector< T > & vec )const;
+		bool operator!=( const vector<T> & vec ) const;
 
 /*--------------------------[VII] Friend functions---------------------------*/
 

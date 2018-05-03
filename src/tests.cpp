@@ -29,7 +29,7 @@ int main(  ){
 	V3.push_back(5);
 	V3.push_back(6);
 	
-	std::cout << "Expected: [ 1 2 3 4 5 6 ]\n"
+	std::cout << "Expected: [ 1 2 3 4 5 6 ]\n";
 	V3.print(); // Out: [ 1 2 3 4 5 6 ]
 
 /*--------------------- Testing pop_front and pop_back ----------------------*/
@@ -61,12 +61,12 @@ int main(  ){
 	std::cout << "\nTesting at()\n\n"; 
 	std::cout << "Pos = 1, Element expected: 8 <<<<"<< V4.at(1) << "\n";
 
-	V4.at(2) = 0;
+	/*V4.at(2) = 0;
 	V4.at(0) = 0;
 	V4.at(4) = 0;
 
 	std::cout << "Expected: [ 0 8 0 6 0 ]\n";
-	V4.print(); // Out [ 0 8 0 6 0 ]
+	V4.print(); // Out [ 0 8 0 6 0 ]*/
 
 	std::cout << "\nTesting Operator == and =!\n\n";
 
@@ -75,41 +75,47 @@ int main(  ){
 	std::cout << "Vector two:\n";
 	V5.print();
 	
-	assert( V4 != V5 );
+	assert( V4 != V5 ); // Execution continues if works
 	if( V4 == V5 ) 
 		std::cout << "The vectors are iqual\n\n";
 	else 
 		std::cout << "The vectos are different\n\n";
 	
-/*--------------------- Testing Assign() and clear() ------------------------*/
+/*------------------ Testing Assign(), clear() and empty() ------------------*/
 
-	std::cout << "\n Testing Assign ( T )\n\n";
+	std::cout << "\nTesting Assign ( T )\n\n";
 
 	std::cout << "\nSample Vector:\n";
 	V5.print();
 
 	V5.assign(1);
-	std::cout << "\n Assigned Vector:\n";
+	std::cout << "\nAssigned Vector:\n";
 	V5.print();
 
-	std::cout << "\n Lets now clear the whole Vector\n";
+	std::cout << "\nLets now clear the whole Vector\n";
 	V5.clear();
 	
-	std::cout << "\n Clean Vector:\n";
+	std::cout << "\nClean Vector:\n";
 	V5.print();
+
+	if( V5.empty() == true )
+		std::cout << "The vector is empty!\n";
 
 /*------------------------- Testing constructors ----------------------------*/
 
-	sc::vector< std::string > hi = {'how', 'is', 'it', 'going'};
+	/* String Vector */
+
+	/*sc::vector< std::string > hi = {'how', 'is', 'it', 'going'};
 	sc::vector< std::string > hello(hi);
 	sc::vector< std::string > hey = hi;
 
 	assert( hi == hey );
 	assert( hey == hello );
+	std::cout << "\nConstructors are working!\n";
 
 	hi.print();
 	hello.print();
-	hey.print();
+	hey.print();*/
 
 	
 }

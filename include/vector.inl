@@ -12,103 +12,108 @@
 using namespace sc;
 
 /*--------------------------[I] Special Members------------------------------*/
-template< typename T >
-vector< T >::vector( size_t size_ ){
 
-	m_end = 0;
-	m_capacity = size_;
-	m_storage = new T[size_+1] /// +1 needed to 'end()' pos. 
-}
+	template< typename T > // evoked when used.
+	vector< T >::vector( size_t size_ ){
 
-template< typename T > // evoked when used.
-vector< T >::vector(  ){
-
-	m_end = 0;
-	m_capacity = DEFAULT_SIZE;
-	m_storage = new T[DEFAULT_SIZE + 1]; // 'end()' pos
-}
-
-template< typename T >
-vector< T >::~vector(  ){ // Destructor, here wee will free memory space
-
-	delete [] m_storage;
-}
-
-/// Copy Constructor
-template< typename T >
-vector< T >::vector( const vector< T > & vec_to_copy ){// Vector based on other
-
-	m_end = vec_to_copy.m_end;
-	m_capacity = vec_to_copy.m_capacity;
-	m_storage = new T[ vec_to_copy.m_capacity + 1 ]; // 'end()' pos
-
-	for( auto i = 0u; i < m_end; ++i /* better than i++ on this case */){
-		m_storage[i] = vec_to_copy.m_storage[i];
+		m_end = 0;
+		m_capacity = size_;
+		m_storage = new T[size_+1]; /// +1 needed to 'end()' pos. 
+	
 	}
-}
 
-template< typename T >
-/* Vector created based on a initializer list */
-vector< T >::vector( std:: initializer_list< T > ilist ){
+	template< typename T > 
+	vector< T >::vector( ){
 
-	m_end = ilist.size(  );
-	m_capacity = ilist.size(  );
-	m_storage = new T[ ilist.size(  ) + 1];
-
-	for( auto i = 0u; i < m_end; ++i /* better than i++ */ ){
-		m_storage[i] = *(ilist.begin(  ) + i);
+		m_end = 0;
+		m_capacity = DEFAULT_SIZE;
+		m_storage = new T[DEFAULT_SIZE + 1]; // 'end()' pos
 	}
-}
+
+	template< typename T >
+	vector< T >::~vector( ){ // Destructor, here wee will free memory space
+
+		delete [] m_storage;
+	}
+
+	/// Copy Constructor
+	template< typename T >
+	vector< T >::vector( const vector< T > & vec_to_copy ){// Vector based on other
+
+		m_end = vec_to_copy.m_end;
+		m_capacity = vec_to_copy.m_capacity;
+		m_storage = new T[ vec_to_copy.m_capacity + 1 ]; // 'end()' pos
+
+		for( auto i = 0u; i < m_end; ++i /* better than i++ on this case */){
+			
+			m_storage[i] = vec_to_copy.m_storage[i];
+		}
+	}
+
+	template< typename T >
+	/* Vector created based on a initializer list */
+	vector< T >::vector( std:: initializer_list< T > ilist ){
+
+		m_end = ilist.size( );
+		m_capacity = ilist.size( );
+		m_storage = new T[ ilist.size( ) + 1];
+
+		for( auto i = 0u; i < m_end; ++i /* better than i++ */ ){
+
+			m_storage[i] = *(ilist.begin( ) + i);
+		}
+
+	}
 
 /*-----------------------------[II] Iterators--------------------------------*/
 
-template < typename T >
-MyIterator<T> vector< T >::begin( void )
-{
-	return MyIterator(&m_storage[0]);
-}
+	template < typename T >
+	MyIterator<T> vector< T >::begin( void ){
+		
+		return MyIterator(&m_storage[0]);
+	}
 
-template < typename T >
-MyIterator<T> vector< T >::end( void )
-{
-	return MyIterator(&m_storage[m_capacity]);
-}
+	template < typename T >
+	MyIterator<T> vector< T >::end( void ){
+		
+		return MyIterator(&m_storage[m_capacity]);
+	}
 
-template < typename T >
-MyIterator<const T> vector< T >::cbegin( void ) const
-{
-	return MyIterator(&m_storage[0]);
-}
+	template < typename T >
+	MyIterator<const T> vector< T >::cbegin( void ) const{
+		
+		return MyIterator(&m_storage[0]);
+	}
 
-template < typename T >
-MyIterator<const T> vector< T >::cend( void ) const
-{
-	return MyIterator(&m_storage[m_capacity])
-}
+	template < typename T >
+	MyIterator<const T> vector< T >::cend( void ) const{
+		
+		return MyIterator(&m_storage[m_capacity])
+	}
 
 
 /*-------------------------[III] Storage Capacity----------------------------*/
 
 	template< typename T > // Vector's size
-	size_t vector< T >::size(  ) const{
+	size_t vector< T >::size( ) const{
 		
 		return m_end;
 	}
 
-	template< typenaime T > // Vector's capacity
-	size_t vector< T >::capacity(  ) const{
+	template< typename T > // Vector's capacity
+	size_t vector< T >::capacity( ) const{
 
 		return m_capacity;
 	}
 
 	template< typename T > // Tells if the vector is empty
-	bool vector< T >::empty(  ) const{
+	bool vector< T >::empty( ) const{
 
 		return m_end < 0;
 	}
 
 	template< typename T > // Tells if the vector is full (making it easier)
-	bool vector< T >::full(  ) const{
+	bool vector< T >::full( ) const{
 
 		return m_end == m_capacity;
 	}
@@ -125,11 +130,12 @@ MyIterator<const T> vector< T >::cend( void ) const
 
 		delete [] m_storage;
 		m_end = 0;
-		m_capacity = new T[DEFAULT_SIZE + 1];
+		m_capacity = 0;
+		m_storage = new T[DEFAULT_SIZE + 1];
 	}
 
 	template< typename T > 
-	void vector< T >::push_front( const T & value_ ){
+	void vector< T >::push_front( const T & value ){
 
 		if( full(  ) == true ){
 			reserve( 1 + m_capacity ); // The capacity will be doubled 
@@ -155,7 +161,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}
 
 	template< typename T > 
-	void vector< T >::pop_back(  ){ // Removing element from the back part
+	void vector< T >::pop_back( ){ // Removing element from the back part
 		
 		if( empty(  ) == true ){
 			throw std::out_of_range("[pop_back()]: Impossible to access an empty vector!");
@@ -165,7 +171,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}
 
 	template< typename T > 
-	void vector< T >::pop_front(  ){ // Removing element from the front part
+	void vector< T >::pop_front( ){ // Removing element from the front part
 
 		if( empty(   ) == true  ){
 			throw std::out_of_range("[pop_front()]: Impossible to access an empty vector!");
@@ -182,12 +188,12 @@ MyIterator<const T> vector< T >::cend( void ) const
 	MyIterator< T > vector< T >::insert( MyIterator& itr, const T& value)
 	{
 
-/*--------Remember to 'levar em consideração' the fact that there
-	may be exceptions thrown-------------------
+	/*--------Remember to 'levar em consideração' the fact that there
+		may be exceptions thrown-------------------
 		if(itr == this->.end()) {
->>>>>>>>>>>>>>>>--------------------------<<<<<<<<<<<<<<<<<
+	>>>>>>>>>>>>>>>>--------------------------<<<<<<<<<<<<<<<<<
 		}
-*/
+	*/
 		if(m_end == m_capacity) {
 			reserve(1 + m_capacity); //Increases capacity
 		}
@@ -221,7 +227,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}
 
 	template< typename T >
-	void vector< T >::shrink_to_fit(  ){ /* As it says, reduzes the vector
+	void vector< T >::shrink_to_fit( ){ /* As it says, reduzes the vector
 											capacity to fit */
 		
 		T * tmp = m_storage;
@@ -229,7 +235,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 		m_storage = new T[m_end + 1];
 
 		for( auto i(0u); i < m_end; ++i ){
-			m_storage[i] = temp[i];
+			m_storage[i] = tmp[i];
 		}
 
 		delete [] tmp;
@@ -244,12 +250,8 @@ MyIterator<const T> vector< T >::cend( void ) const
 
 /*---------------------------[V] Element access------------------------------*/
 
-	//TODO
-/*
-	Operator[] x1;
-*/
 	template< typename T >
-	const T & vector< T >::back(  ) const{ // Access the back element
+	const T & vector< T >::back( ) const{ // Access the back element
 
 		if( empty(  ) == true ){
 			throw std::out_of_range( "[back()]: Impossible to access an empty vector!");
@@ -259,13 +261,19 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}	
 
 	template< typename T >
-	const T & vector< T >::front (  ) const{ // Access the front element
+	const T & vector< T >::front ( ) const{ // Access the front element
 
 		if( empty(  ) == true ){
-			throw std::out_of_range( "[front()]: Impossible to access an empty vector!" );
+			throw std::out_of_range( "[front()]: Impossible to access an empty vector!");
 		}
 
 		return m_storage[0];
+	}
+
+	template< typename T >
+	T & vector< T >::operator[]( size_t pos ){
+		
+		return m_storage[pos];
 	}
 
 	template< typename T >
@@ -274,10 +282,12 @@ MyIterator<const T> vector< T >::cend( void ) const
 		return m_storage[pos];
 	}
 
-	template< typename T >
-	T & vector< T >::at( size_t pos ) const{
 
-		if( pos < 0 or pos > (m_end - 1)){
+
+	template< typename T >
+	const T & vector< T >::at( size_t pos ) const{
+
+		if( pos < 0 or pos > m_end - 1){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -287,7 +297,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 	template< typename T >
 	T & vector< T >::at( size_t pos ){
 		
-		if( pos < 0  or pos > (m_end - 1)){
+		if( pos < 0  or pos > m_end - 1){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -295,21 +305,21 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}
 
 	template< typename T >
-	T * vector< T >::data(  ){
+	T * vector< T >::data( ){
 
 		return m_storage;
 	}
 
 	template< typename T >
-	const T & vector< T >::data(  ) const{
+	const T & vector< T >::data( ) const{
 
 		return m_storage;
 	}
 
 	template< typename T >
-	void vector< T >::print(  ) const{
+	void vector< T >::print( ) const{
 
-		std::cout<< "[";
+		std::cout<< "[ ";
 		std::copy( &m_storage[0], &m_storage[m_end], std::ostream_iterator< T >(std::cout, " "));
 		std::cout<< "], size: " <<m_end<< ", capacity: " <<m_capacity<<".\n";
 	}
@@ -330,7 +340,7 @@ MyIterator<const T> vector< T >::cend( void ) const
 	}
 
 	template< typename T >
-	bool vector< T >::operator!=( const< T > & vec ) const{
+	bool vector< T >::operator!=( const vector< T > & vec ) const{
 
 		// if( m_end == vec.m_end ) return false;
 
@@ -377,5 +387,3 @@ MyIterator<const T> vector< T >::cend( void ) const
 		os << "]";
 		return os;
 	}
-
-
