@@ -16,7 +16,6 @@
 #include <exception> // out_of_range throw
 #include <algorithm> //copy
 #include <iterator> // ostream_iterator
-#include <cmath> //pow
 #include <cstdlib> // size_t
 #include <initializer_list> // initializer_list
 #include <cassert> // assert
@@ -106,26 +105,24 @@ namespace sc{
 			/*! @brief */
 			MyIterator operator- ( int );
 
-			/*! @return A pointer to the vector's begin. */
-			MyIterator begin( );
-		
-			/*! @return A pointer to the vector's end. */
-			MyIterator end( );
-		
-			/*! @return A const pointer to the vector's begin. */
-			MyIterator cbegin( ) const;
-		
-			/*! @return A const pointer to the vector's end. */
-			MyIterator cend( ) const;
-
 
 		private:
 
-			T *current; //!< Pointer to a vector index.
+			T *current; //!< Pointer to
 
 		};
 
+		/*! @return A pointer to the vector's begin. */
+		iterator begin();
 		
+		/*! @return A pointer to the vector's end. */
+		iterator end();
+		
+		/*! @return A const pointer to the vector's begin. */
+		const_iterator cbegin() const;
+		
+		/*! @return A const pointer to the vector's end. */
+		const_iterator cend() const;
 
 /*-------------------------[III] Storage Capacity----------------------------*/
 
@@ -236,18 +233,11 @@ namespace sc{
 
 /*--------------------------[VII] Friend functions---------------------------*/
 
-<<<<<<< HEAD
-		friend std::ostream & operator<<(std::ostream& os,  const vector<T> & rhs);
-		friend void swap( vector<T> & first_, vector<T> & second_);
-
-
-=======
 		/*! @brief */
 		friend std::ostream & operator<<(std::ostream& os,  const vector<T> & rhs);
 		
 		/*! @brief */
 		friend void swap( vector<T> & first_, vector<T> & second_);
->>>>>>> tests
 
 	};
 }
