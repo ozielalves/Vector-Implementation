@@ -13,15 +13,16 @@ using namespace sc;
 
 /*--------------------------[I] Special Members------------------------------*/
 
+template< typename T > // evoked when used.
 vector<T>::vector( size_t size_ ){
 
 	m_end = 0;
 	m_capacity = size_;
-	m_storage = new T[size_+1] /// +1 needed to 'end()' pos. 
+	m_storage = new T[size_+1]; /// +1 needed to 'end()' pos. 
 }
 
-template< typename T > // evoked when used.
-vector< T >::vector(  ){
+template< typename T > 
+vector< T >::vector( ){
 
 	m_end = 0;
 	m_capacity = DEFAULT_SIZE;
@@ -29,7 +30,7 @@ vector< T >::vector(  ){
 }
 
 template< typename T >
-vector< T >::~vector(  ){ // Destructor, here wee will free memory space
+vector< T >::~vector( ){ // Destructor, here wee will free memory space
 
 	delete [] m_storage;
 }
@@ -50,12 +51,12 @@ template< typename T >
 /* Vector created based on a initializer list */
 vector< T >::vector( std:: initializer_list< T > ilist ){
 
-	m_end = ilist.size(  );
-	m_capacity = ilist.size(  );
-	m_storage = new T[ ilist.size(  ) + 1];
+	m_end = ilist.size( );
+	m_capacity = ilist.size( );
+	m_storage = new T[ ilist.size( ) + 1];
 
 	for( auto i = 0u; i < m_end; ++i /* better than i++ */ ){
-		m_storage[i] = *(ilist.begin(  ) + i);
+		m_storage[i] = *(ilist.begin( ) + i);
 }
 }
 
@@ -66,25 +67,25 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 /*-------------------------[III] Storage Capacity----------------------------*/
 
 	template< typename T > // Vector's size
-	size_t vector< T >::size(  ) const{
+	size_t vector< T >::size( ) const{
 		
 		return m_end;
 	}
 
 	template< typename T > // Vector's capacity
-	size_t vector< T >::capacity(  ) const{
+	size_t vector< T >::capacity( ) const{
 
 		return m_capacity;
 	}
 
 	template< typename T > // Tells if the vector is empty
-	bool vector< T >::empty(  ) const{
+	bool vector< T >::empty( ) const{
 
 		return m_end == 0;
 	}
 
 	template< typename T > // Tells if the vector is full (making it easier)
-	bool vector< T >::full(  ) const{
+	bool vector< T >::full( ) const{
 
 		return m_end == m_capacity;
 	}
@@ -96,11 +97,12 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 
 		delete [] m_storage;
 		m_end = 0;
-		m_capacity = new T[DEFAULT_SIZE + 1];
+		m_capacity = 0;
+		m_storage = new T[DEFAULT_SIZE + 1];
 	}
 
 	template< typename T > 
-	void vector< T >::push_front( const T & value_ ){
+	void vector< T >::push_front( const T & value ){
 
 		if( full(  ) == true ){
 			reserve( 1 + 2 * m_capacity ); // The capacity will be doubled 
@@ -125,7 +127,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T > 
-	void vector< T >::pop_back(  ){ // Removing element from the back part
+	void vector< T >::pop_back( ){ // Removing element from the back part
 		
 		if( empty(  ) == true ){
 			throw std::out_of_range("[pop_back()]: Impossible to access an empty vector!");
@@ -135,7 +137,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T > 
-	void vector< T >::pop_front(  ){ // Removing element from the front part
+	void vector< T >::pop_front( ){ // Removing element from the front part
 
 		if( empty(   ) == true  ){
 			throw std::out_of_range("[pop_front()]: Impossible to access an empty vector!");
@@ -165,7 +167,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T >
-	void vector< T >::shrink_to_fit(  ){ /* As it says, reduzes the vector
+	void vector< T >::shrink_to_fit( ){ /* As it says, reduzes the vector
 											capacity to fit */
 		
 		T * tmp = m_storage;
@@ -173,7 +175,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 		m_storage = new T[m_end + 1];
 
 		for( auto i(0u); i < m_end; ++i ){
-			m_storage[i] = temp[i];
+			m_storage[i] = tmp[i];
 		}
 
 		delete [] tmp;
@@ -190,7 +192,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 /*---------------------------[V] Element access------------------------------*/
 
 	template< typename T >
-	const T & vector< T >::back(  ) const{ // Access the back element
+	const T & vector< T >::back( ) const{ // Access the back element
 
 		if( empty(  ) == true ){
 			throw std::out_of_range( "[back()]: Impossible to access an empty vector!");
@@ -200,7 +202,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T >
-	const T & vector< T >::front (  ) const{ // Access the front element
+	const T & vector< T >::front ( ) const{ // Access the front element
 
 		if( empty(  ) == true ){
 			throw std::out_of_range( "[front()]: Impossible to access an empty vector!" );
@@ -210,15 +212,23 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T >
+	T & vector< T >::operator[]( size_t pos ){
+		
+		return m_storage[pos];
+	}
+
+	template< typename T >
 	const T & vector< T >::operator[]( size_t pos ) const{
 
 		return m_storage[pos];
 	}
 
-	template< typename T >
-	T & vector< T >::at( size_t pos ) const{
 
-		if( pos < 0 or pos > (m_end - 1)){
+
+	template< typename T >
+	const T & vector< T >::at( size_t pos ) const{
+
+		if( pos < 0 or pos > m_end - 1){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -228,7 +238,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	template< typename T >
 	T & vector< T >::at( size_t pos ){
 		
-		if( pos <  or pos > (m_end - 1)){
+		if( pos < 0  or pos > m_end - 1){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -236,21 +246,21 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T >
-	T * vector< T >::data(  ){
+	T * vector< T >::data( ){
 
 		return m_storage;
 	}
 
 	template< typename T >
-	const T & vector< T >::data(  ) const{
+	const T & vector< T >::data( ) const{
 
-		return m_storage
+		return m_storage;
 	}
 
 	template< typename T >
-	void vector< T >::print(  ) const{
+	void vector< T >::print( ) const{
 
-		std::cout<< "[";
+		std::cout<< "[ ";
 		std::copy( &m_storage[0], &m_storage[m_end], std::ostream_iterator< T >(std::cout, " "));
 		std::cout<< "], size: " <<m_end<< ", capacity: " <<m_capacity<<".\n";
 	}
@@ -271,7 +281,7 @@ vector< T >::vector( std:: initializer_list< T > ilist ){
 	}
 
 	template< typename T >
-	bool vector< T >::operator!=( const< T > & vec ) const{
+	bool vector< T >::operator!=( const vector< T > & vec ) const{
 
 		// if( m_end == vec.m_end ) return false;
 
