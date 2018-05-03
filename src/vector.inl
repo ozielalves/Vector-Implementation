@@ -66,7 +66,7 @@ using namespace sc;
 	}
 
 	template< typename T >
-	const vector & vector< T >::operator=( const vector< T > & vector_ ){
+	vector< const T > & vector< T >::operator=( const vector< T > & vector_ ){
 		if( this->m_end < vector_.m_end ){
 			this->reserve( vector_.m_end);
 		}
@@ -83,7 +83,7 @@ using namespace sc;
 	}
 
 	template< typename T>
-	vector & vector< T >::operator=( std::initializer_list< T > ilist ){
+	vector< T > & vector< T >::operator=( std::initializer_list< T > ilist ){
 
 		int tmp_capacity;
 		if( ilist.size() > 2 ){
@@ -112,45 +112,45 @@ using namespace sc;
 	/// Was we discovered at class, we can make a 2 in 1 Constructor.
 	/// Here, we have empty initialization and parameter initialization.
 	template< typename T >
-	MyIterator< T >::MyIterator( T* ptr=nullptr ) : current( ptr )
+	vector< T >::MyIterator< T >::MyIterator( T* ptr=nullptr ) : current( ptr )
 	{ /* empty */}
 
 	/// Default Destructor
 	template < typename T >
-	MyIterator< T >::~MyIterator() = default;	
+	vector< T >::MyIterator< T >::~MyIterator() = default;	
 
 	/// Assign Operator
 	template < typename T >
-	MyIterator< T >& MyIterator< T >::operator= ( const MyIterator& rhs )
-	{
+	MyIterator< T > & vector< T >::MyIterator< T >::operator= ( const MyIterator& rhs ){
+		
 		this->current = rhs.current;
 	}
 
 	/// Copy Constructor
 	template < typename T >
-	MyIterator< T >::MyIterator( const MyIterator& itr ) : current( itr.current)
+	vector< T >::MyIterator< T >::MyIterator( const MyIterator& itr ) : current( itr.current)
 	{/* empty */ }	
 
 	/// Reference for MyIterator
 	template < typename T >
-	T& MyIterator< T >::operator* ( void ) const
-	{
+	T & vector< T >::MyIterator< T >::operator* ( void ) const{
+		
 		return *(this->current);
 	}
 
 	/// Operator++
 	// ++it;
 	template < typename T >
-	MyIterator< T >& MyIterator< T >::operator++( )
-	{
+	MyIterator< T > & vector< T >::MyIterator< T >::operator++( ){
+		
 		return ++(this->current);
 	}
 
 	///Operator++
 	// it++;
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator++( int )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator++( int ){
+		
 		MyIterator temp( *this );
 		++(this->current);
 		return temp;
@@ -159,16 +159,16 @@ using namespace sc;
 	///Operator--
 	// --it;
 	template < typename T >
-	MyIterator< T >& MyIterator< T >::operator--( )
-	{
+	MyIterator< T > & vector< T >::MyIterator< T >::operator--( ){
+		
 		return --(this->current);
 	}
 
 	///Operator--
 	// it--;
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator--( int )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator--( int ){
+		
 		MyIterator temp( *this );
 		--(this->current);
 		return temp;
@@ -176,71 +176,71 @@ using namespace sc;
 
 	///Bool for Operator==
 	template < typename T >
-	bool MyIterator< T >::operator==( const MyIterator& rhs ) const
-	{
+	bool vector< T >::MyIterator< T >::operator==( const MyIterator& rhs ) const{
+		
 		return this->current == rhs.current;
 	}
 
 	///Bool for Operator!=
 	template < typename T >
-	bool MyIterator< T >::operator!=( const MyIterator& rhs ) const
-	{
+	bool vector< T >::MyIterator< T >::operator!=( const MyIterator& rhs ) const{
+		
 		return this->current != rhs.current;
 	}
 
 	/// Operator+=
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator+=( int x )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator+=( int x ){
+		
 		this->current = this->current + x;
 		return this->current;
 	}
 
 	/// Operator+
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator+( int x )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator+( int x ){
+		
 		return this->current + x;
 	}
 
 
 	/// Operator-=
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator-=( int x )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator-=( int x ){
+		
 		this->current = this->current - x;
 		return this->current;
 	}	
 
 	/// Operator-
 	template < typename T >
-	MyIterator< T > MyIterator< T >::operator-(int x )
-	{
+	MyIterator< T > vector< T >::MyIterator< T >::operator-(int x ){
+		
 		return this->current - x;
 	}
 
 	template < typename T >
-	MyIterator<T> vector< T >::begin( void ){
+	MyIterator< T > vector< T >::MyIterator< T >::begin( void ){
 		
 		return MyIterator(&m_storage[0]);
 	}
 
 	template < typename T >
-	MyIterator<T> vector< T >::end( void ){
+	MyIterator< T > vector< T >::MyIterator< T >::end( void ){
 		
 		return MyIterator(&m_storage[m_capacity]);
 	}
 
 	template < typename T >
-	MyIterator<const T> vector< T >::cbegin( void ) const{
+	MyIterator< const T > vector< T >::MyIterator< T >::cbegin( void ) const{
 		
 		return MyIterator(&m_storage[0]);
 	}
 
 	template < typename T >
-	MyIterator<const T> vector< T >::cend( void ) const{
+	MyIterator<const T> vector< T >::MyIterator< T >::cend( void ) const{
 		
-		return MyIterator(&m_storage[m_capacity])
+		return MyIterator(&m_storage[m_capacity]);
 	}
 
 

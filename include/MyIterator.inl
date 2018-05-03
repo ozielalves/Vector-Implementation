@@ -2,7 +2,7 @@
  * @file MyIterator.inl  
  * @version 1.0  
  * @date May, 02. 
- * @authors Daniel Guerra and Oziel Alves  
+ * @author Daniel Guerra and Oziel Alves  
  * @title TAD Vector Iterators class
  * @brief Implementation of MyIterator's functions.  
  */
