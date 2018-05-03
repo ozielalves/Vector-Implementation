@@ -175,8 +175,8 @@ namespace sc{
 
 /*--------------------------[VII] Friend functions---------------------------*/
 
-	friend std::ostream & operator<<(std::ostream& os,  const vector<T> & rhs);
-	friend void swap( vector<T> & first_, vector<T> & second_);
+		friend std::ostream & operator<<(std::ostream& os,  const vector<T> & rhs);
+		friend void swap( vector<T> & first_, vector<T> & second_);
 
 
 
