@@ -112,28 +112,28 @@ using namespace sc;
 	/// Was we discovered at class, we can make a 2 in 1 Constructor.
 	/// Here, we have empty initialization and parameter initialization.
 	template< typename T >
-	vector< T >::MyIterator< T >::MyIterator( T* ptr=nullptr ) : current( ptr )
+	vector< T >::iterator::MyIterator( T* ptr=nullptr ) : current( ptr )
 	{ /* empty */}
 
 	/// Default Destructor
 	template < typename T >
-	vector< T >::MyIterator< T >::~MyIterator() = default;	
+	vector< T >::iterator::~MyIterator() = default;	
 
 	/// Assign Operator
 	template < typename T >
-	MyIterator< T > & vector< T >::MyIterator< T >::operator= ( const MyIterator& rhs ){
+	typename vector< T >::iterator& vector< T >::iterator::operator=( const vector< T >::MyIterator& rhs ){
 		
 		this->current = rhs.current;
 	}
 
 	/// Copy Constructor
 	template < typename T >
-	vector< T >::MyIterator< T >::MyIterator( const MyIterator& itr ) : current( itr.current)
+	vector< T >::iterator::MyIterator( const vector< T >::MyIterator& itr ) : current( itr.current)
 	{/* empty */ }	
 
 	/// Reference for MyIterator
 	template < typename T >
-	T & vector< T >::MyIterator< T >::operator* ( void ) const{
+	T & vector< T >::iterator::operator* ( void ) const{
 		
 		return *(this->current);
 	}
@@ -141,7 +141,7 @@ using namespace sc;
 	/// Operator++
 	// ++it;
 	template < typename T >
-	MyIterator< T > & vector< T >::MyIterator< T >::operator++( ){
+	typename vector< T >::iterator& vector< T >::iterator::operator++( void ){
 		
 		return ++(this->current);
 	}
@@ -149,7 +149,7 @@ using namespace sc;
 	///Operator++
 	// it++;
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator++( int ){
+	typename vector< T >::iterator vector< T >::iterator::operator++( int ){
 		
 		MyIterator temp( *this );
 		++(this->current);
@@ -159,7 +159,7 @@ using namespace sc;
 	///Operator--
 	// --it;
 	template < typename T >
-	MyIterator< T > & vector< T >::MyIterator< T >::operator--( ){
+	typename vector< T >::iterator& vector< T >::iterator::operator--( void ){
 		
 		return --(this->current);
 	}
@@ -167,7 +167,7 @@ using namespace sc;
 	///Operator--
 	// it--;
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator--( int ){
+	typename vector< T >::iterator vector< T >::iterator::operator--( int ){
 		
 		MyIterator temp( *this );
 		--(this->current);
@@ -176,21 +176,21 @@ using namespace sc;
 
 	///Bool for Operator==
 	template < typename T >
-	bool vector< T >::MyIterator< T >::operator==( const MyIterator& rhs ) const{
+	bool vector< T >::iterator::operator==( const vector< T >::MyIterator& rhs ) const{
 		
 		return this->current == rhs.current;
 	}
 
 	///Bool for Operator!=
 	template < typename T >
-	bool vector< T >::MyIterator< T >::operator!=( const MyIterator& rhs ) const{
+	bool vector< T >::iterator::operator!=( const vector< T >::MyIterator& rhs ) const{
 		
 		return this->current != rhs.current;
 	}
 
 	/// Operator+=
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator+=( int x ){
+	typename vector< T >::iterator vector< T >::iterator::operator+=( int x ){
 		
 		this->current = this->current + x;
 		return this->current;
@@ -198,51 +198,68 @@ using namespace sc;
 
 	/// Operator+
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator+( int x ){
+	typename vector< T >::iterator vector< T >::iterator::operator+( int x ){
 		
 		return this->current + x;
 	}
 
-
-	/// Operator-=
+	/// Operator+
+	// In case of another iterator
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator-=( int x ){
+	int vector< T >::iterator::operator+( const vector< T >::MyIterator& rhs ){
 		
-		this->current = this->current - x;
-		return this->current;
-	}	
+		return this->current + rhs.current;
+	}
 
 	/// Operator-
+	// In case of a int
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::operator-(int x ){
+	typename vector< T >::iterator vector< T >::iterator::operator-( int x )
+	{
 		
 		return this->current - x;
 	}
 
+	/// Operator-
+	//In case of another iterator
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::begin( void ){
+	int vector< T >::iterator::operator-( const vector< T >::MyIterator& rhs )
+	{
 		
-		return MyIterator(&m_storage[0]);
+		return this->current - rhs.current;
+	}
+
+	/// Operator-=
+	template < typename T >
+	typename vector< T >::iterator vector< T >::iterator::operator-=( int x ){
+		
+		this->current = this->current - x;
+		return this->current;
+	}	
+//------------=--------KKEEEKK------------=----------//
+	template < typename T >
+	typename vector< T >::iterator vector< T >::begin( void ){
+		
+		return vector< T >::iterator(&m_storage[0]);
 	}
 
 	template < typename T >
-	MyIterator< T > vector< T >::MyIterator< T >::end( void ){
+	typename vector< T >::iterator vector< T >::end( void ){
 		
-		return MyIterator(&m_storage[m_capacity]);
+		return vector< T >::iterator(&m_storage[m_capacity]);
 	}
 
 	template < typename T >
-	MyIterator< const T > vector< T >::MyIterator< T >::cbegin( void ) const{
+	typename vector< T >::const_iterator vector< T >::cbegin( void ) const{
 		
-		return MyIterator(&m_storage[0]);
+		return vector< T >::const_iterator(&m_storage[0]);
 	}
 
 	template < typename T >
-	MyIterator<const T> vector< T >::MyIterator< T >::cend( void ) const{
+	typename vector< T >::const_iterator vector< T >::cend( void ) const{
 		
-		return MyIterator(&m_storage[m_capacity]);
+		return vector< T >::const_iterator(&m_storage[m_capacity]);
 	}
-
 
 /*-------------------------[III] Storage Capacity----------------------------*/
 
@@ -276,41 +293,44 @@ using namespace sc;
 /*	
 	iterator insert( ****iterator**** , const value );
 
-	template < typename T >
+	template < typename InputItr >
 	iterator insert( ****iterator**** , InputItr , InputItr );
 
 	iterator insert( ****iterator****, std::initializer_list< T > ilist);
-	
+*/
 	template< typename T >
-	||typename vector< T >::||iterator vector< T >::erase(iterator pos){
+	typename vector< T >::iterator vector< T >::erase( iterator pos ){
 		
-		for(auto i(pos); i != end(); ++i){
+		for(auto i(pos); i != end(); i++){
 			if( i == begin() ){
 				continue;
 			}
 			*(i - 1) = *i;
 		}
-		m_size--;
-		m_last--;
+		m_end--;
+		m_capacity--;
 
-		return pos + 1;
-} 
+		return pos;
+	} 
 
-	||typename vector< T >::||iterator vector< T >::erase(iterator first,iterator last){
+	template < typename T >
+	typename vector< T >::iterator vector< T >::erase( iterator first, iterator last ){
 		
 		iterator j(first);
 		int counter = 0;
-		for(auto i(last); i != end(); ++i){
+		for(auto i(last); i != end(); i++){
 			*(j++) = *i;
 			counter ++;
 		}
+		int diff = last.current - first.current;
+		//int diff = last - first; to see if operator '-' works.
 
-		m_size -= last-first;
-		m_last -= last-first;
+		m_end = m_end - diff;
+		m_capacity = m_capacity - diff;
 
-		return first + counter;
-} 
-*/				
+		return first;
+	} 
+			
 	template< typename T > 
 	void vector< T >::clear(  ){
 
@@ -371,21 +391,15 @@ using namespace sc;
 	}
 
 	template < typename T >
-	MyIterator< T > vector< T >::insert( MyIterator& itr, const T& value)
+	typename vector< T >::iterator vector< T >::insert( iterator itr, const T& value)
 	{
 
-	/*--------Remember to 'levar em consideração' the fact that there
-		may be exceptions thrown-------------------
-		if(itr == this->.end()) {
-	>>>>>>>>>>>>>>>>--------------------------<<<<<<<<<<<<<<<<<
-		}
-	*/
 		if(m_end == m_capacity) {
 			reserve(1 + m_capacity); //Increases capacity
 		}
 
 		// Iterator to the last element with atributed value in vector
-		MyIterator it_temp;
+		vector<T>::iterator it_temp;
 		it_temp = this->.begin() + (m_end + 1);
 
 		for(auto i(it_temp); i != itr; i--)
@@ -394,6 +408,32 @@ using namespace sc;
 		}
 		
 		*itr = value;
+		return itr;
+	}
+
+	template< typename T >
+	typename vector< T >::iterator vector< T >::insert( iterator itr, iterator first, iterator last )
+	{
+		int distance = last-first;
+		T *tmp = new T[distance];
+
+		if(m_end + distance >= m_capacity)
+		{
+			this->reserve(m_end+distance);
+		}
+		int j = 0;
+		for(auto i(first); i != last && i != end(); i++, j++)
+		{
+			*(tmp+j) = *i;
+		}
+
+		
+
+
+		m_end += distance;
+		m_capacity += distance;
+
+		return itr;
 	}
 
 	template< typename T >
@@ -403,7 +443,7 @@ using namespace sc;
 
 		T * tmp = m_storage;
 		m_capacity = new_capacity;
-		m_storage = new T[new_capacity + 1];
+		m_storage = new T[new_capacity +1];
 
 		for( auto i(0u); i < m_end; i++ ){
 			m_storage[i] = tmp[i];
