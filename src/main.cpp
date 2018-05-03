@@ -13,8 +13,8 @@ int main( ){
 
 /*----------------------------- Test vectors --------------------------------*/
 	
-	sc::vector< std::string > V1;
-	sc::vector< int > V2( 10 );
+	sc::vector< std::string > v1;
+	sc::vector< int > v2( 10 );
 
 /*------------------- Testing push_front and push_back ----------------------/
 	
@@ -148,7 +148,7 @@ int main( ){
 	    // Testanto vetor com string
 	    {
 	        std::cout << "\n\t>>>testando vetor com string (vet com capacity NAO definido)\n";
-	        ls::vector< std::string > ss;
+	        sc::vector< std::string > ss;
 
 	        ss.print();
 	        ss.push_back( "one" );
@@ -167,7 +167,7 @@ int main( ){
 	    {
 	        std::cout << "\n\t>>>testando push_front e pop_front (vet com capacity NAO definido)\n";
 
-	        ls::vector<int> v3;
+	        sc::vector<int> v3;
 	        v3.push_front(8);
 	        v3.push_front(9);
 	        v3.push_front(0);
@@ -187,7 +187,7 @@ int main( ){
 	    {
 	        std::cout << "\n\t>>>testando assign(T) and clear()\n";
 
-	        ls::vector<int> v;
+	        sc::vector<int> v;
 	        v.push_front(8);
 	        v.push_front(9);
 	        v.push_front(0);
@@ -210,7 +210,7 @@ int main( ){
 	    {
 	        std::cout << "\n\t>>>testando at() and operator[]()\n";
 
-	        ls::vector<std::string> v;
+	        sc::vector<std::string> v;
 	        v.push_back("me");
 	        v.push_back("you");
 	        v.push_back("he");
@@ -236,8 +236,8 @@ int main( ){
 	        std::cout << "\n\t>>>testando operator== and operator[]()\n";
 	        std::cout << "\n\t>>>inicializando v2 com initializer_list\n";
 
-	        ls::vector<float> v1;
-	        ls::vector<float> v2 = { 0.1, 2.3, 0.8 };
+	        sc::vector<float> v1;
+	        sc::vector<float> v2 = { 0.1, 2.3, 0.8 };
 
 	        v1.push_back(0.1);
 	        v1.push_back(2.3);
@@ -283,9 +283,9 @@ int main( ){
 
 	    //Testando constructors
 	    {
-	        ls::vector<char> A = { 'a', 'b', 'c' };
-	        ls::vector<char> B(A);
-	        ls::vector<char> C = A;
+	        sc::vector<char> A = { 'a', 'b', 'c' };
+	        sc::vector<char> B(A);
+	        sc::vector<char> C = A;
 
 	        assert( A == B );
 	        assert( A == C );
