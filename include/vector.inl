@@ -16,9 +16,13 @@ using namespace sc;
 	template< typename T > // evoked when used.
 	vector< T >::vector( size_t size_ ){
 
-		m_end = -1;
-		m_capacity = size_;
-		m_storage = new T[size_+1]; /// +1 needed to 'end()' pos. 
+		m_capacity = size_+1;
+		m_storage = new T[size_+1];
+		for(int i=0; i < m_capacity; i++)
+		{
+			*(m_storage+i) = DEFAULT_SIZE;
+		}
+		m_end = m_capacity-1;
 	
 	}
 
@@ -26,8 +30,8 @@ using namespace sc;
 	vector< T >::vector( ){
 
 		m_end = -1;
-		m_capacity = DEFAULT_SIZE;
-		m_storage = new T[DEFAULT_SIZE + 1]; // 'end()' pos
+		m_capacity = DEFAULT_SIZE+2;
+		m_storage = new T[m_capacity];
 	}
 
 	template< typename T >
@@ -296,13 +300,13 @@ using namespace sc;
 
 	template< typename T > 
 	void vector< T >::push_front( const T & value ){
-
-		if( full( ) == true ){
+		if( full( ) ){
 			reserve( 1 + m_capacity ); // The capacity will be increased
 		}
-		
-		for( auto i = m_end; i > 0; i-- ){ // Dynamizing the vector
-			*(m_storage+i) = *(m_storage+i-1);
+		if(m_end >= 0 ) {
+			for( auto i = m_end; i > 0; i-- ){ // Dynamizing the vector
+				*(m_storage+i) = *(m_storage+i-1);
+			}
 		}
 
 		m_storage[0] = value;
@@ -312,7 +316,7 @@ using namespace sc;
 	template< typename T > 
 	void vector< T >::push_back( const T & value ){
 		
-		if( full(  ) == true ){
+		if( full( ) ){
 			reserve( 1 + m_capacity ); // The capacity will be increased
 		}
 
@@ -571,8 +575,8 @@ using namespace sc;
 	void vector< T >::print( ) const{
 
 		std::cout<< "[ ";
-		std::copy( &m_storage[0], &m_storage[m_end], std::ostream_iterator< T >(std::cout, " "));
-		std::cout<< "], size: " << m_end << ", capacity: " << m_capacity << ".\n";
+		std::copy( &m_storage[0], &m_storage[m_end+1], std::ostream_iterator< T >(std::cout, " "));
+		std::cout<< "], last index: " << m_end << ", capacity: " << m_capacity << ".\n";
 	}
 	
 /*-----------------------------[VI] Operators--------------------------------*/

@@ -1,60 +1,57 @@
-# Makefile for EDB1 project 'Vector-Implementation'
+# Makefile para Estrutura de Dados Básica I "TAD-VECTOR"
+# Made by Daniel Guerra
 
-# Makefile made by Daniel Guerra
+# Default Conventions
+Target = vector 	# Name of the executable
+INCLUDES = include
+HEADERS = $(wildcard $(INCLUDES)/*)
+CXX = g++
+CXXFLAGS = -Wall -w -std=c++11 -lm -I $(INCLUDES)
+DOCS = html latex
+RM = rm -v
 
 # Directories
-srcdir = ./src
-incdir = ./include
-bindir = ./bin
-datdir = ./data
+SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
 
-# Macros
-CC = g++
-CFLAGS = -Wall -std=c++11 -lm -I$(incdir)
-RM = rm -fv
-OBJS = $(addprefix $(bindir)/,vector.o)
+# Some locations
+SOURCES := $(wildcard $(SRCDIR)/*.cpp)
+OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
-#STILL GOING TO ADD MORE OBJECTS
 
-# Phony targets (for more information, visit https://www.gnu.org/software/make/manual/make.html#Phony-Targets)
+all: project #docs
 
-.PHONY: clean cleanbin cleandat
-.PHONY: all main build
+project: $(OBJECTS) $(HEADERS) | $(BINDIR)
+	$(CXX) $(OBJECTS) $(CXXFLAGS) -o $(BINDIR)/$(Target)
+	@echo "link created: "
+	@ln -sfv $(BINDIR)/$(Target) $(Target)
 
-# Use "make" to compile everything
-all: main build
 
-# Use "make main" to compile only the main
-main: implement
+docs:
+	@doxygen Doxyfile
+	
+$(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(HEADERS) | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Use "make build" to build all modules
-build: vector
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
 
-# Use "make vector" to build only the vector module
-vector: $(bindir)/vector.o
+$(BINDIR):
+	@mkdir -p $(BINDIR)
 
-# Compiles the main
-implement: $(srcdir)/main.cpp $(OBJS)
-	mkdir -p $(bindir)
-	$(CC) $(CFLAGS) $^ -o $(bindir)/$@
-	ln -sfv $(bindir)/$@ $@
+# PHONY targets
+.PHONY: clean clean_txt clean_docs clean_proj
 
-# Builds only the vector module
-$(bindir)/vector.o: $(incdir)/vector.hpp $(incdir)/vector.inl
-	mkdir -p $(bindir)
-	$(CC) $(CFLAGS) -c $< -o $@
+clean: clean_proj #clean_txt clean_docs
 
-# Removes executable and objects
-cleanbin:
-	$(RM) $(bindir)/*
-	$(RM) -r $(bindir)
-	$(RM) life
+clean_proj:
+	$(RM) -f $(OBJDIR)/*
+	$(RM) -f $(BINDIR)/*
+	$(RM) $(Target)	
 
-# Removes data files
-cleandat:
-	$(RM) $(datdir)/*
-	$(RM) -r $(datdir)
+##clean_txt: $(TEXT)
+##	$(RM) -f $(TEXT)	
 
-# Removes all objects, executables and data input and output files
-clean: cleanbin cleandat
-
+##clean_docs: $(DOCS)
+##$(RM) -rf $(DOCS)

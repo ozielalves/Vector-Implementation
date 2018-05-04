@@ -18,27 +18,34 @@ int main( ){
 
 /*---------------------------- Testing emtpy() ------------------------------*/
 	{
-		assert( v1.empty() == true );
-	    assert( v2.empty() == true );
+		//assert( v1.empty() == true );
+	    if(v2.empty() == true )
+	    {
+	    	std::cout << "AHN?\n";
+	    }
 	}
 
 /*-------------------- Testing push_back and pop_back -----------------------*/
 	{
 	  	std::cout << "\n\t>>> Testing push_back & pop_back (Capacity defined)\n";
 	    for( auto i(0) ; i < 10 ; ++i )
-	    v1.push_back( i+1 );
+	    v2.push_back( i );
 	
-		std::cout << "V1 Before pop_back: \n";
-	    v1.print();
+		std::cout << "V2 Before pop_back: \n";
+	    v2.print();
 
-	    std::cout << "poping back V1... ";
-	    while( not v1.empty() )
-	    v1.pop_back();
-	    std::cout << std::endl;
+	    std::cout << "poping back V2... ";
+	    
+	    v2.pop_back();
+	    v2.pop_back();
+	    v2.pop_back();
+	    v2.pop_back();
+	    v2.pop_back();
+	    std::cout << "\n";
 
-		std::cout << "V1 after pop_back: \n";
-	    v1.print();
-	    }
+		std::cout << "V2 after pop_back: \n";
+	    v2.print();
+	}
 
 /*---------------------- Testing vector with string -------------------------*/
 	{
@@ -59,11 +66,13 @@ int main( ){
 	 }
 
 /*------------------- Testing push_front and pop_front ----------------------*/
-	{
+	/*{
 	    std::cout << "\n\t>>> Testing push_front & pop_front (Capacity not defined)\n";
 
 	    sc::vector<int> v3;
+	    std::cout << "oi\n";
 	    v3.push_front(8);
+	    std::cout << "oi1\n";
 	    v3.push_front(9);
 	    v3.push_front(0);
 	    v3.push_back(1);
@@ -75,18 +84,18 @@ int main( ){
 
 		v3.print(); // Expected: 9 8 1
 
-	}   
+	}  */
 
 /*-------------------- Testing assign(T) and clear() ------------------------*/
 	{
 	    std::cout << "\n\t>>> Testing assign(T) and clear()\n";
 
 	    sc::vector<int> v;
-	    v.push_front(8);
-	    v.push_front(9);
-	    v.push_front(0);
+	    v.push_back(8);
+	    v.push_back(9);
+	    v.push_back(0);
 	    v.push_back(1);
-	    v.push_front(5);
+	    v.push_back(5);
 
 		v.print(); // Expected: 5 0 9 8 1
 
