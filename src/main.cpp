@@ -66,7 +66,7 @@ int main( ){
 	 }
 
 /*------------------- Testing push_front and pop_front ----------------------*/
-	/*{
+	{
 	    std::cout << "\n\t>>> Testing push_front & pop_front (Capacity not defined)\n";
 
 	    sc::vector<int> v3;
@@ -84,7 +84,7 @@ int main( ){
 
 		v3.print(); // Expected: 9 8 1
 
-	}  */
+	} 
 
 /*-------------------- Testing assign(T) and clear() ------------------------*/
 	{
