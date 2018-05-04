@@ -60,7 +60,7 @@ using namespace sc;
 	{
 		int tmp_capacity;			
 		if( ilist.size() > 2 ){
-			tmp_capacity = pow( 2, (int) log2( ilist.size() ) )				
+			tmp_capacity = pow( 2, (int) log2( ilist.size() ) );				
 			if( ilist.size() > tmp_capacity ){
 				tmp_capacity *= 2;		
 			}
@@ -300,13 +300,13 @@ using namespace sc;
 
 	template< typename T > 
 	void vector< T >::push_front( const T & value ){
+		
 		if( full( ) ){
-			reserve( 1 + m_capacity ); // The capacity will be increased
+			reserve( 1 + 2 * m_capacity  ); // The capacity will be increased
 		}
-		if(m_end >= 0 ) {
-			for( auto i = m_end; i > 0; i-- ){ // Dynamizing the vector
-				*(m_storage+i) = *(m_storage+i-1);
-			}
+
+		for (auto i(m_end); i > 0; --i){
+			*(m_storage + i) = *(m_storage + i - 1);
 		}
 
 		m_storage[0] = value;
@@ -317,7 +317,7 @@ using namespace sc;
 	void vector< T >::push_back( const T & value ){
 		
 		if( full( ) ){
-			reserve( 1 + m_capacity ); // The capacity will be increased
+			reserve( 1 + 2 * m_capacity ); // The capacity will be increased
 		}
 
 		m_storage[m_end+1] = value;
