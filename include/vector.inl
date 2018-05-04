@@ -56,7 +56,7 @@ using namespace sc;
 	{
 		int tmp_capacity;			
 		if( ilist.size() > 2 ){
-			tmp_capacity = pow( 2, (int) log2( ilist.size() ) );					
+			tmp_capacity = pow( 2, (int) log2( ilist.size() ) )				
 			if( ilist.size() > tmp_capacity ){
 				tmp_capacity *= 2;		
 			}
@@ -232,7 +232,7 @@ using namespace sc;
 		this->current = this->current - x;
 		return this->current;
 	}	
-//------------=--------KKEEEKK------------=----------//
+/*---------------------------------------------------------------------------*/
 	template < typename T >
 	typename vector< T >::MyIterator vector< T >::begin( void ){
 		
@@ -459,8 +459,6 @@ using namespace sc;
 			*(m_storage+i) = value;
 		}
 	}
-
-// TA AQUI PORRAA >>>>>>>>>>>>>>--------------------<<<<<<<<<<<<<<<
 	
 	template < typename T >
 	void vector< T >::assign( std::initializer_list< T > ilist ){
