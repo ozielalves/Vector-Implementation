@@ -13,8 +13,8 @@ int main( ){
 
 /*----------------------------- Test vectors --------------------------------*/
 	
-	sc::vector< std::string > V1;
-	sc::vector< int > V2( 10 );
+	sc::vector< std::string > v1;
+	sc::vector< int > v2( 10 );
 
 /*------------------- Testing push_front and push_back ----------------------/
 	
