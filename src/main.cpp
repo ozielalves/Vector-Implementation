@@ -12,24 +12,23 @@
 int main( ){
 
 /*----------------------------- Test vectors --------------------------------*/
-	
+	std::cout << "\n\t>>> Initializing some vectors for the tests\n";
 	sc::vector< std::string > v1;
 	sc::vector< int > v2( 10 );
 
 /*---------------------------- Testing emtpy() ------------------------------*/
 	{
-		//assert( v1.empty() == true );
-	    if(v2.empty() == true )
-	    {
-	    	std::cout << "AHN?\n";
-	    }
+		assert( v1.empty() == false);
+			std::cout << "The Vetor 01 is not empty\n";
+		assert( v2.empty() == false);
+			std::cout << "The Vetor 02 is not empty\n";
 	}
 
 /*-------------------- Testing push_back and pop_back -----------------------*/
 	{
 	  	std::cout << "\n\t>>> Testing push_back & pop_back (Capacity defined)\n";
 	    for( auto i(0) ; i < 10 ; ++i )
-	    v2.push_back( i );
+	    	v2.push_back( i );
 	
 		std::cout << "V2 Before pop_back: \n";
 	    v2.print();
@@ -41,9 +40,8 @@ int main( ){
 	    v2.pop_back();
 	    v2.pop_back();
 	    v2.pop_back();
-	    std::cout << "\n";
-
-		std::cout << "V2 after pop_back: \n";
+	    
+		std::cout << "\nV2 after pop_back: \n";
 	    v2.print();
 	}
 
@@ -69,10 +67,9 @@ int main( ){
 	{
 	    std::cout << "\n\t>>> Testing push_front & pop_front (Capacity not defined)\n";
 
-	    sc::vector<int> v3;
-	    std::cout << "oi\n";
+	    sc::vector< int > v3;
+	    
 	    v3.push_front(8);
-	    std::cout << "oi1\n";
 	    v3.push_front(9);
 	    v3.push_front(0);
 	    v3.push_back(1);
@@ -90,7 +87,7 @@ int main( ){
 	{
 	    std::cout << "\n\t>>> Testing assign(T) and clear()\n";
 
-	    sc::vector<int> v;
+	    sc::vector< int > v;
 	    v.push_back(8);
 	    v.push_back(9);
 	    v.push_back(0);
@@ -100,7 +97,7 @@ int main( ){
 		v.print(); // Expected: 5 0 9 8 1
 
 	    v.assign(4);
-
+	    std::cout << "\nVector Assigned by 4: \n";
 	    v.print(); // Expected: 4 4 4 4 4
 	     
 	    v.clear();
@@ -137,59 +134,65 @@ int main( ){
 /*------------------ Testing operator== and operator[] ----------------------*/
 	  {
 	    std::cout << "\n\t>>> Testing operator== and operator[]()\n";
+	    
 	    std::cout << "\n\t>>> Initializing v2 with initializer_list\n";
 
-	    sc::vector<float> v1;
-	    sc::vector<float> v2 = { 0.1, 2.3, 0.8 };
+	    sc::vector< float > v7;
+	    sc::vector< float > v8 = { 0.8, 2.3, 0.9 }; // ilist
 
-		v1.push_back(0.1);
-	    v1.push_back(2.3);
-	    v1.push_back(0.8);
+		v7.push_back(0.8);
+	    v7.push_back(2.3);
+	    v7.push_back(0.9);
 
-	    std::cout << "Vector 1: ";
-	    v1.print();
-	    std::cout << "Vector 2: ";
-	    v2.print();
+	    std::cout << "Vector 7: ";
+	    v7.print();
+	    std::cout << "Vector 8: ";
+	    v8.print();
 
-	    assert( v1 == v2 );
-	    if( v1 == v2 )
-	    std::cout << "Vector 1 and 2 are iqual.\n\n";
+	    assert( v7 != v8 ); // ASSERT É UMA AFIRMAÇÃO SE NÃO FOR VDD ELE DA UM ERRO
+	    if( v7 == v8 )	// EU TROQUEI A CONDIÇÃO PRA VOCE VER O ERRO NO INITIALIZER
+	    	// A MINHA FUNC TA COMETADA ABAIXO DA SUA, OBSERVE!
+	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
 	    else
-	    std::cout << "Vector 1 and 2 are different.\n\n";
+	    	std::cout << "Vector 7 and 8 are different.\n\n";
 
-	    v2[1] = 4.1;
-	   	std::cout << "Vector 1: ";
-	    v1.print();
-	    std::cout << "Vector 2: ";
-	    v2.print();
+	    v8[1] = 4.1;
+	   	std::cout << "Vector 7: ";
+	    v7.print();
+	    std::cout << "Vector 8: ";
+	    v8.print();
 
-	    assert( v1 != v2 );
-	    if( v1 == v2 )
-	    std::cout << "Vector 1 and 2 are iqual.\n\n";
+	    assert( v7 != v8 );
+	    if( v7 == v8 )
+	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
 	    else
-	    std::cout << "Vector 1 and 2 are different.\n\n";
+	    	std::cout << "Vector 7 and 8 are different.\n\n";
 
-		v1[1] = 4.1;
-	    v1.push_back(2.0);
+		v7[1] = 4.1;
+	    v7.push_back(3.1);
 
-	    std::cout << "Vector 1: ";
-	    v1.print();
-	    std::cout << "Vector 2: ";
-	    v2.print();
+	    std::cout << "Vector 7: ";
+	    v7.print();
+	    std::cout << "Vector 8: ";
+	    v8.print();
 
-		assert( v1 != v2 );
-	    if( v1 == v2 )
-	    std::cout << "Vector 1 and 2 are iqual.\n\n";
+		assert( v7 != v8 );
+	    if( v7 == v8 )
+	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
 	    else
-	    std::cout << "Vector 1 and 2 são different.\n\n";
+	    	std::cout << "Vector 7 and 8 are different.\n\n";
 	}
 
 /*------------------------- Testing constructors ----------------------------*/
 	{
-	    sc::vector<char> A = { 'a', 'b', 'c' };
-	    sc::vector<char> B(A);
-	    sc::vector<char> C = A;
+		std::cout << "oi pomba\n";
+	    sc::vector< char > A = { 'a', 'b', 'c' };
+	    std::cout << "oi pomba 2\n";
+	    sc::vector< char > B(A);
+	    std::cout << "oi pomba 3\n";
+	    sc::vector< char > C = A;
 
+	    std::cout << "oi pomba 4\n";
 		assert( A == B );
 	    assert( A == C );
 

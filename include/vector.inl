@@ -77,6 +77,13 @@ using namespace sc;
 
 		m_end = ilist.size() - 1;
 		m_capacity = tmp_capacity;
+
+		/*m_end  = ilist.size();
+		m_capacity = ilist.size();
+		m_storage = new T[ ilist.size() + 1];
+
+		for (auto i = 0u; i < m_end; ++i)
+			m_storage[i] = *(ilist.begin()+ i);*/
 	}
 
 	template< typename T >
@@ -305,8 +312,8 @@ using namespace sc;
 			reserve( 1 + 2 * m_capacity  ); // The capacity will be increased
 		}
 
-		for (auto i(m_end); i > 0; --i){
-			*(m_storage + i) = *(m_storage + i - 1);
+		for (auto i(m_end + 1); i > 0; --i){
+			m_storage[ i ] = m_storage[i - 1]; 
 		}
 
 		m_storage[0] = value;
@@ -583,10 +590,12 @@ using namespace sc;
 	bool vector< T >::operator==( const vector< T > & vec ) const{
 
 		/* If the size is different of couse they are different */
-		if( m_end != vec.m_end ) return false;
+		if( m_end != vec.m_end ) 
+			return false;
 		
 		for( auto i(0u); i < m_end; ++i ){ // compare each pos on the vector
-			if( m_storage[i] != vec.m_storage[i] ) return false;
+			if( m_storage[i] != vec.m_storage[i] ) 
+				return false;
 		}
 
 		return true;
@@ -595,12 +604,14 @@ using namespace sc;
 	template< typename T >
 	bool vector< T >::operator!=( const vector< T > & vec ) const{
 
-		// if( m_end == vec.m_end ) return false;
+		/* if( m_end == vec.m_end ) return false;
 
-		for (auto i = 0u; i < m_end; ++i){
+		for (auto i = 0u; i < m_end + 1; ++i){
 			if( m_storage[i] == vec.m_storage[i] ) return false;
 		}
-			return true;
+			return true; */
+
+		return not operator==( vec );
 	}
 
 /*--------------------------[VII] Friend functions---------------------------*/
