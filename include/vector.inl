@@ -58,21 +58,24 @@ using namespace sc;
 	/* Vector created based on a initializer list */
 	vector< T >::vector( std::initializer_list<T> ilist )
 	{
-		int tmp_capacity;			
+		int tmp_capacity;
+		std::cout << ilist.size() << "\n";	
 		if( ilist.size() > 2 ){
-			tmp_capacity = pow( 2, (int) log2( ilist.size() ) );				
+			tmp_capacity = pow( 2, (int) log2( ilist.size() ) );			
 			if( ilist.size() > tmp_capacity ){
+				std::cout << "tem qqu entrar\n";
 				tmp_capacity *= 2;		
 			}
 		} else {
 			tmp_capacity = ilist.size();	
 		}
-
+		std::cout << m_capacity << "\n";
 		reserve( tmp_capacity );
+		std::cout << m_capacity << "\n";
 
-		int buf = 0;
-		for( auto *i = ilist.begin(); i < ilist.end(); i++, buf++ ){
-			*(m_storage+buf) = *i;
+		int carambola = 0;
+		for( auto i(ilist.begin()); i != ilist.end(); i++, carambola++ ){
+			*(m_storage + carambola) = *i;
 		}
 
 		m_end = ilist.size() - 1;
@@ -434,9 +437,10 @@ using namespace sc;
 
 		if( new_capacity <= m_capacity ) return; // Nothing to do 
 
-		m_capacity = new_capacity;
+		m_capacity = new_capacity+1;
 		T * tmp = new T[new_capacity];
 		std::copy(m_storage, m_storage + m_end+1, tmp);
+
 		delete [] m_storage;
 
 		m_storage = new T[m_capacity];

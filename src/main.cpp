@@ -182,12 +182,11 @@ int main( ){
 	    else
 	    	std::cout << "Vector 7 and 8 are different.\n\n";
 	}
-
 /*------------------------- Testing constructors ----------------------------*/
 	{
 		std::cout << "oi pomba\n";
-	    sc::vector< char > A = { 'a', 'b', 'c' };
-	    std::cout << "oi pomba 2\n";
+		sc::vector< char > A = { 'a', 'b', 'c' }; //SERÁ PRECISO ENTÃO MUDAR ESTA INICIALIZAÇÃO?
+		std::cout << "oi pomba 2\n";
 	    sc::vector< char > B(A);
 	    std::cout << "oi pomba 3\n";
 	    sc::vector< char > C = A;
@@ -197,7 +196,7 @@ int main( ){
 	    assert( A == C );
 
 	    A.print();
-	    B.print();
+		B.print();
 	    C.print();
 	}
 }
