@@ -619,7 +619,7 @@ using namespace sc;
 	}
 
 /*--------------------------[VII] Friend functions---------------------------*/
-/*
+
 	void swap( vector< T >& first_, vector< T >& second_){
 
 		T *tmp_storage1 = first_.m_storage;
@@ -645,14 +645,14 @@ using namespace sc;
 	}
 
 
-	std::ostream& operator<<( std::ostream os, const vector< T >& rhs )
+	std::ostream& operator<<( std::ostream os_, const vector< T >& v_ )
 	{
-		os << "[ ";
-		for( auto i(0u); i < rhs.m_end; i++)
+		os_ << "[ ";
+		for( auto i(0u); i < v_.m_end; i++)
 		{
-			os << *(rhs.m_storage+i) << " ";
+			os << *(v_.m_storage+i) << " ";
 		}
-		os << "]";
-		return os;
+		os_ << "]";
+		return os_;
 	}
-*/
+

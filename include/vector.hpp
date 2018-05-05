@@ -250,10 +250,10 @@ namespace sc{
 	/*--------------------------[VII] Friend functions---------------------------*/
 
 			/*! @brief */
-//			friend std::ostream & operator<<(std::ostream& os, const vector<T> & rhs);
+			friend std::ostream & operator<<(std::ostream& os_, const vector<T> & v_);
 			
 			/*! @brief */
-//			friend void swap( vector<T> & first_, vector<T> & second_);
+			friend void swap( vector<T> & first_, vector<T> & second_);
 
 	};
 }
