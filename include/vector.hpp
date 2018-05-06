@@ -63,63 +63,64 @@ namespace sc{
 
 				public:
 
-					/*! @brief */
+					/*! @brief Iterator parameter initialization. */
 					MyIterator( T* );
 				
-					/*! @brief */
+					/*! @brief Iterator empty initialization. */
 					MyIterator( );
 
-					/*! @brief */
+					/*! @brief Iterator destrutor. */
 					~MyIterator( );
 
-					/// Assign Operator
+					//! @brief Iterator Assign Operator.
 					MyIterator & operator=( const MyIterator& rhs );
 
-					/// Copy Constructor
+					//! @brief Iterator Copy Constructor.
 					MyIterator( const MyIterator & itr );
 				
-					/*! @brief */
+					/*! @brief Iterator operator '*'. */
 					T & operator* ( ) const;
 				
-					/*! @brief */
+					/*! @brief Iterator operator '++A'. */
 					MyIterator & operator++ ( );	// ++it;
 				
-					/*! @brief */
+					/*! @brief Iterator operator 'A++'. */
 					MyIterator operator++ ( int );	// it++; 
 					
-					/*! @brief */
+					/*! @brief Iterator operator 'A--'. */
 					MyIterator & operator-- ( );	// --it;		
 					
-					/*! @brief */
+					/*! @brief Iterator operator 'A--'. */
 					MyIterator operator-- ( int );	// it--;
 					
-					/*! @brief */
+					/*! @brief Iterator operator '=='. */
 					bool operator== ( const MyIterator & rhs ) const;
 					
-					/*! @brief */
+					/*! @brief Iterator operator '!='. */
 					bool operator!= ( const MyIterator & rhs ) const;
 					
-					/*! @brief */
+					/*! @brief Iterator operator '+='. */
 					MyIterator operator+= ( int );
 					
-					/*! @brief */
+					/*! @brief Iterator operator '+'. */
 					MyIterator operator+ ( int );
 
+					/*! brief Iterator operator '+' using a const iterator. */
 					int operator+ ( const vector< T >::MyIterator& rhs );
 				
-					/*! @brief */
+					/*! @brief Iterator operator '-='. */
 					MyIterator operator-= ( int );
 				
-					/*! @brief */
+					/*! @brief Iterator operator '-'. */
 					MyIterator operator- ( int );
 
-					/*! @brief */
+					/*! @brief Iterator operator '-' using a const iterator. */
 					int operator- ( const vector< T >::MyIterator& rhs );
 
 
 				private:
 
-					T *current; //!< Pointer to
+					T *current; //!< Pointer to a vector index.
 
 			};
 
@@ -151,15 +152,6 @@ namespace sc{
 
 	/*-----------------------------[IV] Modifiers--------------------------------*/
 
-		// TODO
-		
-		/* 	
-			template < typename T >
-		 	void assign( std::initializer_list< T > ilist );
-		*/
-		
-		// END OF TODO
-
 			/*! @brief Remove all the elements from the vector. */                  
 			void clear( );                                       
 				           
@@ -175,10 +167,13 @@ namespace sc{
 			/*! @brief Remove the front of the vector.*/                            
 			void pop_front( );
 
+			/*! @brief Insert a value on the vector. */
 			typename vector< T >::MyIterator insert( MyIterator itr, const T & value );
 
+			/*! @brief Insert an especific range on the vector. */
 			typename vector< T >::MyIterator insert( MyIterator itr, MyIterator first, MyIterator last );
 
+			/*! @brief Inserter from an initializer list. */
 			typename vector< T >::MyIterator insert( MyIterator itr, std::initializer_list<T> ilist );
 			
 			/*! @brief Increase the storage capacity to a param value. */           
@@ -193,8 +188,10 @@ namespace sc{
 			/*! @brief Replaces the vector content based on initializer list. */
 			void assign( std::initializer_list< T > ilist);
 
+			/*! @brief Iterator position eraser. */
 			typename vector< T >::MyIterator erase( MyIterator pos);
 
+			/*! @brief Iterator range eraser. */
 			typename vector< T >::MyIterator erase( MyIterator first, MyIterator last );
 
 	/*---------------------------[V] Element access------------------------------*/
@@ -249,10 +246,10 @@ namespace sc{
 
 	/*--------------------------[VII] Friend functions---------------------------*/
 
-			/*! @brief */
+			/*! @brief Printer. */
 			friend std::ostream & operator<<(std::ostream& os_, const vector<T> & v_);
 			
-			/*! @brief */
+			/*! @brief Makes swaps between vectors. */
 			friend void swap( vector<T> & first_, vector<T> & second_);
 
 	};
