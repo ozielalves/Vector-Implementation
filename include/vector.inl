@@ -16,21 +16,21 @@ using namespace sc;
 	template< typename T > // evoked when used.
 	vector< T >::vector( size_t size_ ){
 
-		m_capacity = size_+1;
-		m_storage = new T[size_+1];
+		m_capacity = size_;
+		m_storage = new T[size_];
 		for(int i=0; i < m_capacity; i++)
 		{
 			*(m_storage+i) = DEFAULT_SIZE;
 		}
-		m_end = m_capacity-1;
+		m_end = 0;
 	
 	}
 
 	template< typename T > 
 	vector< T >::vector( ){
 
-		m_end = -1;
-		m_capacity = DEFAULT_SIZE+2;
+		m_end = 0;
+		m_capacity = DEFAULT_SIZE+1;
 		m_storage = new T[m_capacity];
 	}
 
@@ -48,7 +48,7 @@ using namespace sc;
 		m_capacity = vec_to_copy.m_capacity;
 		m_storage = new T[ vec_to_copy.m_capacity ]; // 'end()' pos
 
-		for( auto i = 0; i <= m_end; i++){
+		for( auto i = 0; i < m_end; i++){
 			
 			*(m_storage+i) = *(vec_to_copy.m_storage+i);
 		}
@@ -57,7 +57,7 @@ using namespace sc;
 	template< typename T >
 	/* Vector created based on a initializer list */
 	vector< T >::vector( std::initializer_list<T> ilist )
-	{
+	{/*
 		int tmp_capacity;
 		std::cout << ilist.size() << "\n";	
 		if( ilist.size() > 2 ){
@@ -79,14 +79,16 @@ using namespace sc;
 		}
 
 		m_end = ilist.size() - 1;
-		m_capacity = tmp_capacity;
+		m_capacity = tmp_capacity;*/
 
-		/*m_end  = ilist.size();
+		m_end  = ilist.size();
 		m_capacity = ilist.size();
 		m_storage = new T[ ilist.size() + 1];
 
-		for (auto i = 0u; i < m_end; ++i)
-			m_storage[i] = *(ilist.begin()+ i);*/
+		for (auto i = 0u; i < m_end; i++)
+		{
+			*(m_storage+i) = *(ilist.begin()+ i);
+		}
 	}
 
 	template< typename T >
@@ -100,7 +102,7 @@ using namespace sc;
 		this->m_end = vector_.m_end;
 		this->m_storage = this->vector_.m_storage;
 
-		for( int i = 0; i <= vector_.m_end; i++ ){
+		for( int i = 0; i < vector_.m_end; i++ ){
 			*(this->m_storage+i) = *(vector_.m_storage+i);
 		}
 		
@@ -109,10 +111,8 @@ using namespace sc;
 
 /*-----------------------------[II] Iterators--------------------------------*/
 
-	/// Was we discovered at class, we can make a 2 in 1 Constructor.
-	/// Here, we have empty initialization and parameter initialization.
 	template< typename T >
-	vector< T >::MyIterator::MyIterator( T* ptr)// : current( ptr )
+	vector< T >::MyIterator::MyIterator( T* ptr)
 	{ 
 		current = ptr;
 	}
@@ -287,14 +287,14 @@ using namespace sc;
 
 	template< typename T > // Tells if the vector is empty
 	bool vector< T >::empty( ) const{
-
-		return m_end < 0;
+		std::cout << m_end << "\n";
+		return m_end == 0;
 	}
 
 	template< typename T > // Tells if the vector is full (making it easier)
 	bool vector< T >::full( ) const{
 
-		return m_end == m_capacity-1;
+		return m_end == m_capacity;
 	}
 
 /*-----------------------------[IV] Modifiers--------------------------------*/
@@ -303,7 +303,7 @@ using namespace sc;
 	void vector< T >::clear( ){
 
 		delete [] m_storage;
-		m_end = -1;
+		m_end = 0;
 		m_capacity = 0;
 		m_storage = new T[DEFAULT_SIZE + 1];
 	}
@@ -312,11 +312,11 @@ using namespace sc;
 	void vector< T >::push_front( const T & value ){
 		
 		if( full( ) ){
-			reserve( 1 + 2 * m_capacity  ); // The capacity will be increased
+			reserve( 1 + m_capacity  ); // The capacity will be increased
 		}
 
-		for (auto i(m_end + 1); i > 0; --i){
-			m_storage[ i ] = m_storage[i - 1]; 
+		for (auto i(m_end); i > 0; i--){
+			m_storage[i] = m_storage[i-1]; 
 		}
 
 		m_storage[0] = value;
@@ -327,10 +327,10 @@ using namespace sc;
 	void vector< T >::push_back( const T & value ){
 		
 		if( full( ) ){
-			reserve( 1 + 2 * m_capacity ); // The capacity will be increased
+			reserve( 1 + m_capacity ); // The capacity will be increased
 		}
 
-		m_storage[m_end+1] = value;
+		m_storage[m_end] = value;
 		m_end++;
 	}
 
@@ -352,7 +352,7 @@ using namespace sc;
 			throw std::out_of_range("[pop_front()]: Impossible to access an empty vector!");
 		}
 
-		for( auto i = 0; i < m_end; i++ ){
+		for( auto i = 0; i < m_end-1; i++ ){
 			*(m_storage+i) = *(m_storage+i+1);
 		}
 
@@ -369,7 +369,7 @@ using namespace sc;
 		}
 
 		// Iterator to the last element with atributed value in vector
-		auto it_temp(begin( ) + m_end);
+		auto it_temp(begin( ) + m_end-1);
 
 		for(auto i(it_temp); i != itr; i--)
 		{
@@ -385,12 +385,13 @@ using namespace sc;
 	{
 		int distance = last-first;
 
-		if(m_end + distance >= m_capacity)
+		if(m_end-1 + distance >= m_capacity)
 		{
-			reserve(m_end+distance);
+			reserve(m_end-1+distance);
 		}
 
-		auto it_temp(begin( ) + m_end);
+		// Iterator to the last element with atributed value in vector
+		auto it_temp(begin( ) + m_end-1);
 
 		for(auto i(it_temp); i != itr; i--)
 		{
@@ -414,11 +415,12 @@ using namespace sc;
 	{
 
 		int indcInsert = itr - &m_storage[0];
-		if(m_end + ilist.size() >= m_capacity){
-			reserve(m_end + ilist.size());
+		if(m_end-1 + ilist.size() >= m_capacity){
+			reserve(m_end-1 + ilist.size());
 		}
 
-		auto it_temp(begin( ) + m_end);
+		// Iterator to the last element with atributed value in vector
+		auto it_temp(begin( ) + m_end-1);
 		for(auto i(it_temp); i != itr; i--)
 		{
 			*(i + ilist.size()) = *i;
@@ -437,14 +439,14 @@ using namespace sc;
 
 		if( new_capacity <= m_capacity ) return; // Nothing to do 
 
-		m_capacity = new_capacity+1;
+		m_capacity = new_capacity;
 		T * tmp = new T[new_capacity];
-		std::copy(m_storage, m_storage + m_end+1, tmp);
+		std::copy(m_storage, m_storage + m_end, tmp);
 
 		delete [] m_storage;
 
 		m_storage = new T[m_capacity];
-		for( auto i(0); i <= m_end; i++ ){
+		for( auto i(0); i < m_end; i++ ){
 			*(m_storage+i) = *(tmp+i);
 		}
 
@@ -454,14 +456,14 @@ using namespace sc;
 	template< typename T >
 	void vector< T >::shrink_to_fit( ){ /* As it says, reduzes the vector capacity to fit */
 		
-		m_capacity = m_end+1; // -> what will make the 'fit' stuff
+		m_capacity = m_end; // -> what will make the 'fit' stuff
 
 		T *tmp = new T[m_capacity];
-		std::copy(m_storage, m_storage + m_end+1, tmp);
+		std::copy(m_storage, m_storage + m_end, tmp);
 		delete [] m_storage;
 
 		m_storage = new T[m_capacity];
-		for( auto i = 0; i <= m_end; i++ ){
+		for( auto i = 0; i < m_end; i++ ){
 			*(m_storage+i) = *(tmp+i);
 		}
 
@@ -470,14 +472,14 @@ using namespace sc;
 	
 	template< typename T >
 	void vector< T >::assign( const T & value ){ /* Replaces the vector with copies */
-		for( auto i(0u); i <= m_end; i++ ){
+		for( auto i(0u); i < m_end; i++ ){
 			*(m_storage+i) = value;
 		}
 	}
 	
 	template < typename T >
 	void vector< T >::assign( std::initializer_list< T > ilist ){
-		for( auto i(0u); i <= m_end; i++){
+		for( auto i(0u); i < m_end; i++){
 			*(m_storage+i) = ilist;
 		}
 	}
@@ -523,7 +525,7 @@ using namespace sc;
 			throw std::out_of_range( "[back()]: Impossible to access an empty vector!");
 		}
 
-		return m_storage[m_end];
+		return m_storage[m_end-1];
 	}	
 
 	template< typename T >
@@ -551,7 +553,7 @@ using namespace sc;
 	template< typename T >
 	const T & vector< T >::at( size_t pos ) const{
 
-		if( pos < 0 or pos > m_end ){
+		if( pos < 0 or pos >= m_end ){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -561,7 +563,7 @@ using namespace sc;
 	template< typename T >
 	T & vector< T >::at( size_t pos ){
 		
-		if( pos < 0  or pos > m_end ){
+		if( pos < 0  or pos >= m_end ){
 			throw std::out_of_range("[at()]: Position required is out of range!");
 		}
 
@@ -584,8 +586,8 @@ using namespace sc;
 	void vector< T >::print( ) const{
 
 		std::cout<< "[ ";
-		std::copy( &m_storage[0], &m_storage[m_end+1], std::ostream_iterator< T >(std::cout, " "));
-		std::cout<< "], last index: " << m_end << ", capacity: " << m_capacity << ".\n";
+		std::copy( &m_storage[0], &m_storage[m_end], std::ostream_iterator< T >(std::cout, " "));
+		std::cout<< "], number of elements: " << m_end << ", capacity: " << m_capacity << ".\n";
 	}
 	
 /*-----------------------------[VI] Operators--------------------------------*/
@@ -594,10 +596,10 @@ using namespace sc;
 	bool vector< T >::operator==( const vector< T > & vec ) const{
 
 		/* If the size is different of couse they are different */
-		if( m_end != vec.m_end ) 
+		if( (m_end != vec.m_end) ) 
 			return false;
 		
-		for( auto i(0u); i < m_end; ++i ){ // compare each pos on the vector
+		for( auto i(0u); i < m_end; i++ ){ // compare each pos on the vector
 			if( m_storage[i] != vec.m_storage[i] ) 
 				return false;
 		}
@@ -608,18 +610,11 @@ using namespace sc;
 	template< typename T >
 	bool vector< T >::operator!=( const vector< T > & vec ) const{
 
-		/* if( m_end == vec.m_end ) return false;
-
-		for (auto i = 0u; i < m_end + 1; ++i){
-			if( m_storage[i] == vec.m_storage[i] ) return false;
-		}
-			return true; */
-
 		return not operator==( vec );
 	}
 
 /*--------------------------[VII] Friend functions---------------------------*/
-
+/*
 	void swap( vector< T >& first_, vector< T >& second_){
 
 		T *tmp_storage1 = first_.m_storage;
@@ -655,4 +650,4 @@ using namespace sc;
 		os_ << "]";
 		return os_;
 	}
-
+*/

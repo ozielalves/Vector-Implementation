@@ -18,18 +18,21 @@ int main( ){
 
 /*---------------------------- Testing emtpy() ------------------------------*/
 	{
-		assert( v1.empty() == false);
-			std::cout << "The Vetor 01 is not empty\n";
-		assert( v2.empty() == false);
-			std::cout << "The Vetor 02 is not empty\n";
+		assert( v1.empty() );
+			std::cout << "The Vetor 01 is empty\n";
+		assert( v2.empty() );
+			std::cout << "The Vetor 02 is empty\n";
 	}
+
+	std::cout << v1.empty() << "\n";
 
 /*-------------------- Testing push_back and pop_back -----------------------*/
 	{
 	  	std::cout << "\n\t>>> Testing push_back & pop_back (Capacity defined)\n";
-	    for( auto i(0) ; i < 10 ; ++i )
+	    for( auto i(1) ; i < 10 ; ++i )
+	    {
 	    	v2.push_back( i );
-	
+		}
 		std::cout << "V2 Before pop_back: \n";
 	    v2.print();
 
@@ -110,7 +113,7 @@ int main( ){
 	 {
 	    std::cout << "\n\t>>> Testing at() and operator[]()\n";
 
-	    sc::vector<std::string> v;
+	    sc::vector<std::string> v(10);
 	    v.push_back("me");
 	    v.push_back("you");
 	    v.push_back("he");
@@ -132,10 +135,11 @@ int main( ){
 	  }
 
 /*------------------ Testing operator== and operator[] ----------------------*/
+
 	  {
 	    std::cout << "\n\t>>> Testing operator== and operator[]()\n";
 	    
-	    std::cout << "\n\t>>> Initializing v2 with initializer_list\n";
+	    std::cout << "\n\t>>> Initializing v8 with initializer_list\n";
 
 	    sc::vector< float > v7;
 	    sc::vector< float > v8 = { 0.8, 2.3, 0.9 }; // ilist
@@ -149,24 +153,31 @@ int main( ){
 	    std::cout << "Vector 8: ";
 	    v8.print();
 
-	    assert( v7 != v8 ); // ASSERT É UMA AFIRMAÇÃO SE NÃO FOR VDD ELE DA UM ERRO
+	    assert( v7 == v8 ); // ASSERT É UMA AFIRMAÇÃO SE NÃO FOR VDD ELE DA UM ERRO
 	    if( v7 == v8 )	// EU TROQUEI A CONDIÇÃO PRA VOCE VER O ERRO NO INITIALIZER
+	    {
 	    	// A MINHA FUNC TA COMETADA ABAIXO DA SUA, OBSERVE!
 	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
+	    }
 	    else
+	    {
 	    	std::cout << "Vector 7 and 8 are different.\n\n";
+	    }
 
 	    v8[1] = 4.1;
 	   	std::cout << "Vector 7: ";
 	    v7.print();
 	    std::cout << "Vector 8: ";
 	    v8.print();
-
 	    assert( v7 != v8 );
 	    if( v7 == v8 )
+	    {
 	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
+	    }
 	    else
+	    {
 	    	std::cout << "Vector 7 and 8 are different.\n\n";
+	    }
 
 		v7[1] = 4.1;
 	    v7.push_back(3.1);
@@ -177,11 +188,15 @@ int main( ){
 	    v8.print();
 
 		assert( v7 != v8 );
-	    if( v7 == v8 )
+	    if( v7 == v8 ){
 	    	std::cout << "Vector 7 and 8 are iqual.\n\n";
-	    else
+	    }
+	    else{
 	    	std::cout << "Vector 7 and 8 are different.\n\n";
+	    }
+	    std::cout << "MEUCU\n";
 	}
+
 /*------------------------- Testing constructors ----------------------------*/
 	{
 		std::cout << "oi pomba\n";

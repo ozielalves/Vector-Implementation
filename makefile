@@ -46,8 +46,8 @@ $(BINDIR):
 clean: clean_proj #clean_txt clean_docs
 
 clean_proj:
-	$(RM) -f $(OBJDIR)/*
-	$(RM) -f $(BINDIR)/*
+	$(RM) -rf $(OBJDIR)
+	$(RM) -rf $(BINDIR)
 	$(RM) $(Target)	
 
 ##clean_txt: $(TEXT)

@@ -10,8 +10,6 @@
 #ifndef _VECTOR_HPP_
 #define _VECTOR_HPP_
 
-//#include "MyIterator.hpp"
-
 #include <iostream> // cin,cout
 #include <exception> // out_of_range throw
 #include <algorithm> //copy
@@ -31,9 +29,6 @@ namespace sc{
 			size_t m_capacity; //<! Vector storage capacity.
 			const static size_t DEFAULT_SIZE = 0; //!< Vector start size.
 			T * m_storage; //<! Dynamic vector data storage.
-
-			//using iterator = MyIterator< T > // Vector's Iterator
-			//using const_iterator = MyIterator< const T > 
 
 		public:
 			
@@ -247,10 +242,10 @@ namespace sc{
 	/*--------------------------[VII] Friend functions---------------------------*/
 
 			/*! @brief Printer. */
-			friend std::ostream & operator<<(std::ostream& os_, const vector<T> & v_);
+			//friend std::ostream & operator<<(std::ostream& os_, const vector<T> & v_);
 			
 			/*! @brief Makes swaps between vectors. */
-			friend void swap( vector<T> & first_, vector<T> & second_);
+			//friend void swap( vector<T> & first_, vector<T> & second_);
 
 	};
 }
