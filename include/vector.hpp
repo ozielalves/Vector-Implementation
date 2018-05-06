@@ -37,6 +37,9 @@ namespace sc{
 			/*! @brief Creates the vector with the 'a' size setted. */
 			vector( size_t size_ );
 
+			/*! @brief Creates the vector with the elements in defined range. */
+			//vector( T *first, T *last );
+
 			/*! @brief Creates a default start_size vector size. */ 
 			vector( );
 
@@ -50,7 +53,7 @@ namespace sc{
 			vector( std::initializer_list<T> ilist );
 				
 			/*! @brief */
-			vector<const T> & operator=( const vector< T > & vector_ ); 
+			vector<T> & operator=( const vector< T > & vector_ ); 
 
 /*-----------------------------[II] Iterators------------------------------------*/
 			
@@ -77,13 +80,13 @@ namespace sc{
 					T & operator* ( ) const;
 				
 					/*! @brief Iterator operator '++A'. */
-					MyIterator & operator++ ( );	// ++it;
+					MyIterator operator++ ( );	// ++it;
 				
 					/*! @brief Iterator operator 'A++'. */
 					MyIterator operator++ ( int );	// it++; 
 					
 					/*! @brief Iterator operator 'A--'. */
-					MyIterator & operator-- ( );	// --it;		
+					MyIterator operator-- ( );	// --it;		
 					
 					/*! @brief Iterator operator 'A--'. */
 					MyIterator operator-- ( int );	// it--;
@@ -99,9 +102,6 @@ namespace sc{
 					
 					/*! @brief Iterator operator '+'. */
 					MyIterator operator+ ( int );
-
-					/*! brief Iterator operator '+' using a const iterator. */
-					int operator+ ( const vector< T >::MyIterator& rhs );
 				
 					/*! @brief Iterator operator '-='. */
 					MyIterator operator-= ( int );
@@ -111,7 +111,6 @@ namespace sc{
 
 					/*! @brief Iterator operator '-' using a const iterator. */
 					int operator- ( const vector< T >::MyIterator& rhs );
-
 
 				private:
 
@@ -182,6 +181,9 @@ namespace sc{
 
 			/*! @brief Replaces the vector content based on initializer list. */
 			void assign( std::initializer_list< T > ilist);
+
+			/*! @brief Replaces the vector content based on initializer list. */
+			void assign( MyIterator first, MyIterator last);
 
 			/*! @brief Iterator position eraser. */
 			typename vector< T >::MyIterator erase( MyIterator pos);

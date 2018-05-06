@@ -23,7 +23,6 @@ using namespace sc;
 			*(m_storage+i) = DEFAULT_SIZE;
 		}
 		m_end = 0;
-	
 	}
 
 	template< typename T > 
@@ -92,18 +91,17 @@ using namespace sc;
 	}
 
 	template< typename T >
-	vector< const T > & vector< T >::operator=( const vector< T > & vector_ ){
+	vector< T >& vector< T >::operator=( const vector< T > & vector_ ){
 		if( m_capacity < vector_.m_capacity )
 		{
-			this->reserve( vector_.m_capacity + 1);
+			this->reserve( vector_.m_capacity );
 		}
 
-		this->m_capacity = vector_.m_capacity;
-		this->m_end = vector_.m_end;
-		this->m_storage = this->vector_.m_storage;
+		m_capacity = vector_.m_capacity;
+		m_end = vector_.m_end;
 
 		for( int i = 0; i < vector_.m_end; i++ ){
-			*(this->m_storage+i) = *(vector_.m_storage+i);
+			*(m_storage+i) = *(vector_.m_storage+i);
 		}
 		
 		return *this;
@@ -151,7 +149,7 @@ using namespace sc;
 	/// Operator++
 	// ++it;
 	template < typename T >
-	typename vector< T >::MyIterator& vector< T >::MyIterator::operator++( void ){
+	typename vector< T >::MyIterator vector< T >::MyIterator::operator++( void ){
 		
 		return ++(this->current);
 	}
@@ -169,7 +167,7 @@ using namespace sc;
 	///Operator--
 	// --it;
 	template < typename T >
-	typename vector< T >::MyIterator& vector< T >::MyIterator::operator--( void ){
+	typename vector< T >::MyIterator vector< T >::MyIterator::operator--( void ){
 		
 		return --(this->current);
 	}
@@ -213,14 +211,6 @@ using namespace sc;
 		return this->current + x;
 	}
 
-	/// Operator+
-	// In case of another iterator
-	template < typename T >
-	int vector< T >::MyIterator::operator+( const vector< T >::MyIterator& rhs ){
-		
-		return this->current + rhs.current;
-	}
-
 	/// Operator-
 	// In case of a int
 	template < typename T >
@@ -245,7 +235,8 @@ using namespace sc;
 		
 		this->current = this->current - x;
 		return this->current;
-	}	
+	}
+
 /*---------------------------------------------------------------------------*/
 	template < typename T >
 	typename vector< T >::MyIterator vector< T >::begin( void ){
@@ -368,6 +359,8 @@ using namespace sc;
 			reserve(1 + m_capacity); //Increases capacity
 		}
 
+		m_end++;
+
 		// Iterator to the last element with atributed value in vector
 		auto it_temp(begin( ) + m_end-1);
 
@@ -375,7 +368,7 @@ using namespace sc;
 		{
 			*i = *(i-1);
 		}
-		
+
 		*itr = value;
 		return itr;
 	}
@@ -387,13 +380,14 @@ using namespace sc;
 
 		if(m_end-1 + distance >= m_capacity)
 		{
-			reserve(m_end-1+distance);
+			reserve(m_end + distance);
 		}
+
 
 		// Iterator to the last element with atributed value in vector
 		auto it_temp(begin( ) + m_end-1);
 
-		for(auto i(it_temp); i != itr; i--)
+		for(auto i(it_temp); i != (itr-1); i--)
 		{
 			*(i+distance) = *i;
 		}
@@ -403,10 +397,8 @@ using namespace sc;
 			*itr = *j;
 			itr++;
 		}
-
+		
 		m_end += distance;
-		m_capacity += distance;
-
 		return itr;
 	}
 
@@ -416,21 +408,20 @@ using namespace sc;
 
 		int indcInsert = itr - &m_storage[0];
 		if(m_end-1 + ilist.size() >= m_capacity){
-			reserve(m_end-1 + ilist.size());
+			reserve(m_end + ilist.size());
 		}
+
 
 		// Iterator to the last element with atributed value in vector
 		auto it_temp(begin( ) + m_end-1);
-		for(auto i(it_temp); i != itr; i--)
+		for(auto i(it_temp); i != (itr-1); i--)
 		{
 			*(i + ilist.size()) = *i;
 		}
 
 		std::copy(ilist.begin(), ilist.end(), m_storage+indcInsert);
-	
-		m_end += ilist.size();
-		m_capacity += ilist.size();
 
+		m_end += ilist.size();
 		return m_storage + indcInsert; 
 	}
 
@@ -477,24 +468,41 @@ using namespace sc;
 		}
 	}
 	
+	template <typename T>
+	void vector<T>::assign( MyIterator first, MyIterator last ){
+
+		m_capacity = 0;
+		int distance = last-first;
+		reserve(distance);
+
+		int j = 0;
+		for (auto i(first);  i != last; i++, j++ ) {
+			*(m_storage+j) = *i;	
+		}
+		m_end = distance;
+	}
+
 	template < typename T >
 	void vector< T >::assign( std::initializer_list< T > ilist ){
-		for( auto i(0u); i < m_end; i++){
-			*(m_storage+i) = ilist;
+		if(m_capacity < ilist.size()){
+			reserve(ilist.size());
 		}
+
+		m_capacity = ilist.size();
+		m_end = ilist.size();
+		std::copy(ilist.begin(), ilist.end(), m_storage);
 	}
 
 	template< typename T >
 	typename vector< T >::MyIterator vector< T >::erase( MyIterator pos ){
 		
-		for(auto i(pos); i != end(); i++){
+		for(auto i(pos+1); i != end(); i++){
 			if( i == begin() ){
 				continue;
 			}
 			*(i - 1) = *i;
 		}
 		m_end--;
-		m_capacity--;
 
 		return pos;
 	} 
@@ -507,11 +515,10 @@ using namespace sc;
 		for(auto i(last); i != end(); i++){
 			*(j++) = *i;
 		}
-		int diff = last.current - first.current;
+		int diff = last - first;
 		//int diff = last - first; to see if operator '-' works.
 
 		m_end = m_end - diff;
-		m_capacity = m_capacity - diff;
 
 		return first;
 	} 
@@ -540,6 +547,10 @@ using namespace sc;
 
 	template< typename T >
 	T & vector< T >::operator[]( size_t pos ){
+
+		if( pos < 0 or pos >= m_end ){
+			throw std::out_of_range("[at()]: Position required is out of range!");
+		}
 		
 		return m_storage[pos];
 	}
@@ -547,6 +558,9 @@ using namespace sc;
 	template< typename T >
 	const T & vector< T >::operator[]( size_t pos ) const{
 
+		if( pos < 0 or pos >= m_end ){
+			throw std::out_of_range("[at()]: Position required is out of range!");
+		}
 		return m_storage[pos];
 	}
 

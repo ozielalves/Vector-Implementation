@@ -7,7 +7,6 @@ INCLUDES = include
 HEADERS = $(wildcard $(INCLUDES)/*)
 CXX = g++
 CXXFLAGS = -Wall -w -std=c++11 -lm -I $(INCLUDES)
-DOCS = html latex
 RM = rm -v
 
 # Directories
@@ -20,16 +19,12 @@ SOURCES := $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 
-all: project #docs
+all: project
 
 project: $(OBJECTS) $(HEADERS) | $(BINDIR)
 	$(CXX) $(OBJECTS) $(CXXFLAGS) -o $(BINDIR)/$(Target)
 	@echo "link created: "
 	@ln -sfv $(BINDIR)/$(Target) $(Target)
-
-
-docs:
-	@doxygen Doxyfile
 	
 $(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(HEADERS) | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -41,17 +36,13 @@ $(BINDIR):
 	@mkdir -p $(BINDIR)
 
 # PHONY targets
-.PHONY: clean clean_txt clean_docs clean_proj
+.PHONY: clean cleanbin cleanobj
 
-clean: clean_proj #clean_txt clean_docs
+clean: cleanbin cleanobj
 
-clean_proj:
-	$(RM) -rf $(OBJDIR)
+cleanbin:
 	$(RM) -rf $(BINDIR)
 	$(RM) $(Target)	
 
-##clean_txt: $(TEXT)
-##	$(RM) -f $(TEXT)	
-
-##clean_docs: $(DOCS)
-##$(RM) -rf $(DOCS)
+cleanobj:
+	$(RM) -rf $(OBJDIR)
