@@ -244,15 +244,16 @@ namespace sc{
 	/*--------------------------[VII] Friend functions---------------------------*/
 
 			/*! @brief Printer. */
-			friend std::ostream & operator<<( std::ostream & os_, const vector< T > & v_ );
+//			friend std::ostream & operator<<( std::ostream & os_, const vector< T > & v_ );
 			
 			/*! @brief Makes swaps between vectors. */
-			friend void swap( vector< T > & first_, vector< T > & second_ );
+//			friend void swap( vector< T > & first_, vector< T > & second_ );
+//			friend void vector<T>::swap(vector & other);
 
 	};
 }
 
 //Source Code
-#include "vector.inl" // All the class function, operators and stuff like that
+#include "vector.inl" // All the class function, operators and stuff like that.
 
 #endif

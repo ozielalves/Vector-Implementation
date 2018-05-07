@@ -628,7 +628,7 @@ using namespace sc;
 	}
 
 /*--------------------------[VII] Friend functions---------------------------*/
-
+/*
 	template< typename T >
 	void vector< T >::swap( vector< T > & first_, vector< T > & second_ ){
 
@@ -656,11 +656,13 @@ using namespace sc;
 
 	template< typename T >
 	std::ostream & vector< T >::operator<<( std::ostream & os_, const vector< T > & v_ ){
+		
 		os_ << "[ ";
 		for( auto i(0u); i < v_.m_end; i++)
 		{
-			os << *(v_.m_storage+i) << " ";
+			os_ << *(v_.m_storage+i) << " ";
 		}
 		os_ << "]";
-		return os_;
+		return std::ostream os_;
 	}
+*/

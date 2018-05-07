@@ -321,7 +321,7 @@ int main( ){
 
 	}
 /*------------------------ Testing Friend Functions -------------------------*/
-	
+/*	
 	{
 		sc::vector< double > f1 = {1.5, 2.5, 5.3, 6.7, 8.0, 9.5, 12.32};
 		sc::vector< double > f2(f1);
@@ -334,7 +334,7 @@ int main( ){
 
 		swap(f1, f2);
 	}
-	
+*/	
 	std::cout << "\nFinished testing vector functions\n";
 	std::cout << "\e[32;1mAuthors: Daniel Guerra and Oziel Alves\e[0m\n";
 	return 1;
