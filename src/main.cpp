@@ -11,14 +11,14 @@
 
 int main( ){
 
-/*-------------------- Testing Special Members -----------------------*/
+/*------------------------ Testing Special Members --------------------------*/
 	{
 		sc::vector< std::string > v1 = {"ola", "bom dia", "funcionou", "uhu"};
 		sc::vector< int > v2( 10 );
 		sc::vector< std::string > v3(v1);
 		sc::vector<int> v4 = {1,2,3,8,9};
 
-		std::cout << ">>> Testing Special Members Functions.\n";
+		std::cout << "\n\e[36;4m>>> Testing Special Members Functions.\e[0m\n\n";
 		std::cout << ">>> Showing vectors.\n";
 	    v1.print();
 	    v2.print();
@@ -32,10 +32,10 @@ int main( ){
 	  //  v5.print();
 	}
 
-/*------------------------- Testing Capacity Methods ----------------------------*/
+/*------------------------ Testing Capacity Methods -------------------------*/
 	{
-		std::cout << "\n\n>>> Testing constructors Initializations\n";
-		std::cout << ">>> Testing insert functions\n";
+		std::cout << "\n\e[36;4m>>> Testing constructors Initializations\e[0m\n";
+		std::cout << "\e[36;4m>>> Testing insert functions\e[0m\n\n";
 
 	    sc::vector< char > A;
 
@@ -64,10 +64,11 @@ int main( ){
 	    C.print();
 	}
 
-	/*------------- Testing vector with string -------------*/
-		std::cout << "\n\t>>> Testing Modifiers Methods\n";
+/*------------------------ Testing vector with string -----------------------*/
+
+		std::cout << "\n\e[36;4m>>> Testing Modifiers Methods\e[0m\n";
 	{
-	    std::cout << "\n\t>>> Testing string vector (Capacity not defined)\n";
+	    std::cout << "\e[36;4m>>> Testing string vector (Capacity not defined)\e[0m\n\n";
 	    sc::vector< std::string > ss;
 
 		ss.print();
@@ -85,7 +86,8 @@ int main( ){
 
 /*------------------- Testing push_front and pop_front ----------------------*/
 	{
-	    std::cout << "\n\t>>> Testing push_front & pop_front (Capacity not defined)\n";
+	    
+	    std::cout << "\n\e[36;4m>>> Testing push_front & pop_front (Capacity not defined)\e[0m\n\n";
 
 	    sc::vector< int > a3;
 	    
@@ -103,9 +105,10 @@ int main( ){
 
 	} 
 
-/*-------------------- Testing assign() and clear() ------------------------*/
+/*--------------------- Testing assign() and clear() ------------------------*/
+	
 	{
-	    std::cout << "\n\t>>> Testing assign() and clear()\n";
+	    std::cout << "\n\e[36;4m>>> Testing assign() and clear()\e[0m\n\n";
 
 	    sc::vector< int > v;
 	    sc::vector< int > vv = {10,9,8,7,6};
@@ -156,10 +159,12 @@ int main( ){
 
 	 }
 
-/*------------------- Testing Acess Methods --------------------*/
+/*------------------------- Testing Acess Methods ---------------------------*/
+
 	 {
-	    std::cout << "\n\t>>> Testing at() and operator[]()\n";
-	    std::cout << "\n\t>>> Testing Acess Methods\n";
+	    std::cout << "\n\e[36;4m>>> Testing at() and operator[]()\e[0m\n";
+	    std::cout << "\e[36;4m>>> Testing Acess Methods\e[0m\n\n";
+
 
 	    sc::vector<std::string> v(10);
 	    v.push_back("never");
@@ -177,7 +182,7 @@ int main( ){
 	    std::cout << "Element on index 3 = " << v.at(3) << std::endl; 
 	    
 
-	    std::cout << "\n\t>>> Testing shrink_to_fit()\n";
+	    std::cout << "\n\e[36;4m>>> Testing shrink_to_fit()\e[0m\n\n";
 	    v.shrink_to_fit();
 	    std::cout << "The unused space was removed, now capacity = len\n";
 	    v.print();
@@ -186,9 +191,9 @@ int main( ){
 /*------------------ Testing operator== and operator[] ----------------------*/
 
 	  {
-	    std::cout << "\n\t>>> Testing operator== and operator[]()\n";
+	    std::cout << "\n\e[36;4m>>> Testing operator== and operator[]()\e[0m\n\n";
 	    
-	    std::cout << "\n\t>>> Initializing v8 with initializer_list\n";
+	    std::cout << "\n>>> Initializing v8 with initializer_list\n\n";
 
 	    sc::vector< float > v7;
 	    sc::vector< float > v8 = { 0.8, 2.3, 0.9, 6.81 }; // ilist
@@ -250,19 +255,17 @@ int main( ){
 	    else{
 	    	std::cout << "Vector 7 and 8 are different.\n\n";
 	    }
-	    std::cout << "MEUCU\n";
 	}
 
 /*------------------------- Testing constructors ----------------------------*/
 	{
-		std::cout << ">>> Testing constructors Initializations\n";
-		std::cout << ">>> Testing insert functions\n";
+		std::cout << "\n\e[36;4m>>> Testing Constructors initialization\e[0m\n";
+		std::cout << "\e[36;4m>>> Testing Insert functions\e[0m\n\n";
 
-		sc::vector< char > A = { 'a', 'b', 'c', 'f', 'd', 'e', 'g' }; //SERÁ PRECISO ENTÃO MUDAR ESTA INICIALIZAÇÃO?
+		sc::vector< char > A = { 'a', 'b', 'c', 'f', 'd', 'e', 'g' }; 
 	    sc::vector< char > B(A);
 	    sc::vector< char > C = A;
 
-	    std::cout << "oi pomba 4\n";
 		assert( A == B );
 	    assert( A == C );
 
@@ -280,7 +283,7 @@ int main( ){
 	    C.print();
 
 	}
-/*---------------------- Testing Iterators ------------------*/
+/*--------------------------- Testing Iterators -----------------------------*/
 	{
 		std::cout << "\n\e[36;4m>>> Operations with Iterators\e[0m\n\n";
 
@@ -317,8 +320,8 @@ int main( ){
 		std::cout << "]\n";		
 
 	}
-/*---------------------- Testing Friend Functions ------------------*/
-	/*
+/*------------------------ Testing Friend Functions -------------------------*/
+	
 	{
 		sc::vector< double > f1 = {1.5, 2.5, 5.3, 6.7, 8.0, 9.5, 12.32};
 		sc::vector< double > f2(f1);
@@ -331,7 +334,7 @@ int main( ){
 
 		swap(f1, f2);
 	}
-	*/
+	
 	std::cout << "\nFinished testing vector functions\n";
 	std::cout << "\e[32;1mAuthors: Daniel Guerra and Oziel Alves\e[0m\n";
 	return 1;
