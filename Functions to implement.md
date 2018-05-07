@@ -5,7 +5,7 @@
 - [x] Regular constructor (3 credits);
 - [x] Destructor(3 credits);
 - [x] Copy constructor (3 credits);
-- [ ] Constructor from range (3 credits);
+- [x] Constructor from range (3 credits);
 - [x] Constructor from initialize list (3 credits);
 - [x] Assignment operator (3 credits);
 
